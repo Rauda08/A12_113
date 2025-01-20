@@ -16,14 +16,14 @@ interface InstrukturService {
         "Content-Type: application/json"
     )
     @GET("getbyidInstruktur.php/{id_instruktur}")
-    suspend fun getInstrukturByIdInstruktur(@Query("id_instruktur") idInstruktur: Instruktur): Instruktur
+    suspend fun getInstrukturByIdInstruktur(@Query("id_instruktur") idInstruktur: Int): Instruktur
 
     @POST("insertInstruktur.php")
     suspend fun insertInstruktur(@Body instruktur: Instruktur)
 
     @PUT("editInstruktur.php/{id_instruktur}")
-    suspend fun updateInstruktur(@Query("id_instruktur") idInstruktur: Instruktur, @Body instruktur: Instruktur)
+    suspend fun updateInstruktur(@Query("id_instruktur") idInstruktur: Int, @Body instruktur: Instruktur)
 
     @DELETE("deleteInstruktur.php/{id_instruktur}")
-    suspend fun deleteInstruktur(@Query("id_instruktur") instruktur: Instruktur): Response<Void>
+    suspend fun deleteInstruktur(@Query("id_instruktur") idInstruktur: Int): Response<Void>
 }
