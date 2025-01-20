@@ -15,7 +15,7 @@ interface KursusService {
         "Accept: application/json",
         "Content-Type: application/json"
     )
-    @GET("getkursus.php")
+    @GET("getKursus.php")
     suspend fun getKursus(): List<Kursus>
 
     @GET("getbyidKursus.php/{id_kursus}")

@@ -1,7 +1,6 @@
 package com.example.finalucp_113.service
 
 import com.example.finalucp_113.model.Siswa
-import com.example.finalucp_113.model.SiswaResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE

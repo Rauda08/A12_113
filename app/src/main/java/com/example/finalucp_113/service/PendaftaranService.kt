@@ -1,5 +1,6 @@
 package com.example.finalucp_113.service
 
+import com.example.finalucp_113.model.Kursus
 import com.example.finalucp_113.model.Pendaftaran
 import retrofit2.Response
 import retrofit2.http.Body
@@ -15,6 +16,8 @@ interface PendaftaranService {
         "Accept: application/json",
         "Content-Type: application/json"
     )
+    @GET("getPendaftaran.php")
+    suspend fun getPendaftaran(): List<Pendaftaran>
     @GET("getbyidPendaftaran.php/{id_pendaftaran}")
     suspend fun getPendaftaranByIdPendaftaran(@Query("id_pendaftaran") idPendaftaran: Int): Pendaftaran
 
