@@ -15,6 +15,9 @@ interface InstrukturService {
         "Accept: application/json",
         "Content-Type: application/json"
     )
+    @GET("getinstruktur.php")
+    suspend fun getInstruktur(): List<Instruktur>
+
     @GET("getbyidInstruktur.php/{id_instruktur}")
     suspend fun getInstrukturByIdInstruktur(@Query("id_instruktur") idInstruktur: Int): Instruktur
 
