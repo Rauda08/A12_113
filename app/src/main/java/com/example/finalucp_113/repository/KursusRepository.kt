@@ -1,9 +1,7 @@
 package com.example.finalucp_113.repository
 
 import com.example.finalucp_113.model.Kursus
-import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.service.KursusService
-import com.example.finalucp_113.service.SiswaService
 import java.io.IOException
 
 interface KursusRepository {

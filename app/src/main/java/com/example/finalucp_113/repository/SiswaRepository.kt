@@ -41,5 +41,4 @@ class NetworkSiswaRepository(
     override suspend fun getSiswaByidSiswa(idSiswa: Int): Siswa {
         return siswaApiService.getSiswaByIdSiswa(idSiswa)
     }
-
 }
