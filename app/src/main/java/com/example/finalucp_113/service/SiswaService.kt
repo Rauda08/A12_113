@@ -1,6 +1,7 @@
 package com.example.finalucp_113.service
 
 import com.example.finalucp_113.model.Siswa
+import com.example.finalucp_113.model.SiswaResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -15,16 +16,19 @@ interface SiswaService {
         "Accept: application/json",
         "Content-Type: application/json"
     )
+    @GET("getsiswa.php")
+    suspend fun getSiswa(): List<Siswa>
+
     @GET("getbyidsiswa.php/{id_siswa}")
-    suspend fun getSiswaByIdSiswa(@Query("id_siswa") idSiswa: Siswa): Siswa
+    suspend fun getSiswaByIdSiswa(@Query("id_siswa") idSiswa: Int): Siswa
 
     @POST("insertsiswa.php")
     suspend fun insertSiswa(@Body siswa: Siswa)
 
     @PUT("editsiswa.php/{id_siswa}")
-    suspend fun updateSiswa(@Query("id_siswa") idSiswa: Siswa, @Body siswa: Siswa)
+    suspend fun updateSiswa(@Query("id_siswa") idSiswa: Int, @Body siswa: Siswa)
 
     @DELETE("deletesiswa.php/{id_siswa}")
-    suspend fun deleteSiswa(@Query("id_siswa") siswa: Siswa): Response<Void>
+    suspend fun deleteSiswa(@Query("id_siswa") siswa: Int): Response<Void>
 
 }
