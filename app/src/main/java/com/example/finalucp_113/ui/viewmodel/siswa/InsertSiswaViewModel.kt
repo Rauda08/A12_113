@@ -69,7 +69,7 @@ data class SiswaUIState(
 )
 
 data class FormErrorState(
-    val id_siswa: Int? = null,
+    val id_siswa: String? = null,
     val nama_siswa: String? = null,
     val email: String? = null,
     val no_telepon: String? = null
