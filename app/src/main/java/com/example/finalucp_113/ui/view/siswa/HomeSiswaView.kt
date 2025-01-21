@@ -1,11 +1,15 @@
 package com.example.finalucp_113.ui.view.siswa
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
@@ -22,8 +26,31 @@ import com.example.finalucp_113.model.Siswa
 
 
 
-
-
+@Composable
+fun SiswaLayout(
+    siswa: List<Siswa>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Siswa) -> Unit,
+    onDeleteClick: (Siswa) -> Unit = {}
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(siswa) { siswaItem ->
+            SiswaCard(
+                siswa = siswaItem,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onDetailClick(siswaItem) },
+                onDeleteClick = {
+                    onDeleteClick(siswaItem)
+                }
+            )
+        }
+    }
+}
 
 @Composable
 fun SiswaCard(
@@ -56,9 +83,19 @@ fun SiswaCard(
                     )
                 }
             }
-            Text(text = "ID: ${siswa.id_siswa}", style = MaterialTheme.typography.bodyMedium)
-            Text(text = "Email: ${siswa.email}", style = MaterialTheme.typography.bodyMedium)
-            Text(text = "No Telepon: ${siswa.no_telepon}", style = MaterialTheme.typography.bodyMedium)
+
+            Text(
+                text = "ID Siswa: ${siswa.id_siswa}",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = siswa.email,
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = siswa.no_telepon,
+                style = MaterialTheme.typography.titleLarge
+            )
         }
     }
 }
