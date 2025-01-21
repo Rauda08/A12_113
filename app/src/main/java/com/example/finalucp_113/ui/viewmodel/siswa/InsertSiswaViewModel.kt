@@ -86,7 +86,7 @@ fun SiswaEvent.toSiswa(): Siswa = Siswa(
 )
 
 data class SiswaEvent(
-    val id_siswa: Int = 0,
+    val id_siswa: Int? = 0,
     val nama_siswa: String = "",
     val email: String = "",
     val no_telepon: String = ""
