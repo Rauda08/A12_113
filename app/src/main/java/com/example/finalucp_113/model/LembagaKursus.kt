@@ -4,21 +4,17 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Siswa (
-    @SerialName("idSiswa")
-    val id_siswa : Int,
-
-    val nama_siswa : String,
-    val email : String,
-    val no_telepon : String
-
+data class Siswa(
+    val id_siswa: String,
+    val nama_siswa: String,
+    val email: String,
+    val no_telepon: String
 )
+
 
 @Serializable
 data class Instruktur (
-    @SerialName("idInstruktur")
-    val id_instruktur: Int,
-
+    val id_instruktur: String,
     val nama_instruktur: String,
     val email: String,
     val nomor_telepon : String,
@@ -27,13 +23,11 @@ data class Instruktur (
 
 @Serializable
 data class Kursus (
-    @SerialName("idKursus")
-    val id_kursus: Int,
-
+    val id_kursus: String,
     val nama_kursus: String,
     val deskripsi: String,
     val kategori : Kategori,
-    val harga : Double,
+    val harga : String,
     val id_instruktur : Instruktur
 )
 
@@ -45,9 +39,7 @@ enum class Kategori {
 
 @Serializable
 data class Pendaftaran (
-    @SerialName("idPendaftaran")
-    val id_pendaftaran: Int,
-
+    val id_pendaftaran: String,
     val id_siswa: Siswa,
     val id_kursus: Kursus,
     val tanggal_pendaftaran : String
