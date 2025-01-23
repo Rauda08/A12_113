@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.repository.SiswaRepository
+import com.example.finalucp_113.ui.view.siswa.DestinasiDetailSiswa
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -23,7 +24,7 @@ class DetailsiswaViewModel(
     private val siswaRepository: SiswaRepository
 ) : ViewModel() {
 
-    private val id_siswa: String = checkNotNull(savedStateHandle[DestinasiDetailsiswa.id_siswa])
+    private val id_siswa: String = checkNotNull(savedStateHandle[DestinasiDetailSiswa.id_siswa])
     var detailsiswaUiState: DetailsiswaUiState by mutableStateOf(DetailsiswaUiState.Loading)
         private set
 
