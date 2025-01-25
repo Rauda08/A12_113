@@ -19,14 +19,14 @@ interface KursusService {
     suspend fun getKursus(): List<Kursus>
 
     @GET("getbyidkursus.php/{id_kursus}")
-    suspend fun getKursusByIdKursus(@Query("id_kursus") idKursus: Int): Kursus
+    suspend fun getKursusByIdKursus(@Query("id_kursus") idKursus: String): Kursus
 
     @POST("insertkursus.php")
     suspend fun insertKursus(@Body kursus: Kursus)
 
     @PUT("editkursus.php/{id_kursus}")
-    suspend fun updateKursus(@Query("id_kursus") idKursus: Int, @Body kursus: Kursus)
+    suspend fun updateKursus(@Query("id_kursus") idKursus: String, @Body kursus: Kursus)
 
     @DELETE("deletekursus.php/{id_kursus}")
-    suspend fun deleteKursus(@Query("id_kursus") idKursus: Int): Response<Void>
+    suspend fun deleteKursus(@Query("id_kursus") idKursus: String): Response<Void>
 }

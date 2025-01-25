@@ -7,9 +7,9 @@ import java.io.IOException
 interface KursusRepository {
     suspend fun getKursus(): List<Kursus>
     suspend fun insertKursus(kursus: Kursus)
-    suspend fun updateKursus(idKursus : Int, kursus: Kursus)
-    suspend fun deleteKursus(idKursus: Int)
-    suspend fun getKursusByidKursus(idKursus: Int): Kursus
+    suspend fun updateKursus(idKursus : String, kursus: Kursus)
+    suspend fun deleteKursus(idKursus: String)
+    suspend fun getKursusByidKursus(idKursus: String): Kursus
 }
 
 class NetworkKursusRepository(
@@ -19,11 +19,11 @@ class NetworkKursusRepository(
         kursusApiService.insertKursus(kursus)
     }
 
-    override suspend fun updateKursus(idKursus: Int, kursus: Kursus) {
+    override suspend fun updateKursus(idKursus: String, kursus: Kursus) {
         kursusApiService.updateKursus(idKursus,kursus)
     }
 
-    override suspend fun deleteKursus(idKursus: Int) {
+    override suspend fun deleteKursus(idKursus: String) {
         try {
             val response = kursusApiService.deleteKursus(idKursus)
             if (!response.isSuccessful) {
@@ -38,7 +38,7 @@ class NetworkKursusRepository(
     }
 
     override suspend fun getKursus(): List<Kursus> = kursusApiService.getKursus()
-    override suspend fun getKursusByidKursus(idKursus: Int): Kursus {
+    override suspend fun getKursusByidKursus(idKursus: String): Kursus {
         return kursusApiService.getKursusByIdKursus(idKursus)
     }
 }

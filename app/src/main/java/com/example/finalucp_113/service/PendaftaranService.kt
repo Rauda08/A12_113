@@ -19,14 +19,14 @@ interface PendaftaranService {
     @GET("getpendaftaran.php")
     suspend fun getPendaftaran(): List<Pendaftaran>
     @GET("getbyidpendaftaran.php/{id_pendaftaran}")
-    suspend fun getPendaftaranByIdPendaftaran(@Query("id_pendaftaran") idPendaftaran: Int): Pendaftaran
+    suspend fun getPendaftaranByIdPendaftaran(@Query("id_pendaftaran") idPendaftaran: String): Pendaftaran
 
     @POST("insertpendaftaran.php")
     suspend fun insertPendaftaran(@Body pendaftaran: Pendaftaran)
 
     @PUT("editpendaftaran.php/{id_pendaftaran}")
-    suspend fun updatePendaftaran(@Query("id_pendaftaran") idPendaftaran: Int, @Body pendaftaran: Pendaftaran)
+    suspend fun updatePendaftaran(@Query("id_pendaftaran") idPendaftaran: String, @Body pendaftaran: Pendaftaran)
 
     @DELETE("deletependaftaran.php/{id_pendaftaran}")
-    suspend fun deletePendaftaran(@Query("id_pendaftaran") pendaftaran: Int): Response<Void>
+    suspend fun deletePendaftaran(@Query("id_pendaftaran") pendaftaran: String): Response<Void>
 }

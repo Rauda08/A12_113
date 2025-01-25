@@ -7,9 +7,9 @@ import java.io.IOException
 interface PendaftaranRepository {
     suspend fun getPendaftaran(): List<Pendaftaran>
     suspend fun insertPendaftaran(pendaftaran: Pendaftaran)
-    suspend fun updatePendaftaran(idPendaftaran : Int, pendaftaran: Pendaftaran)
-    suspend fun deletePendaftaran(idPendaftaran: Int)
-    suspend fun getPendaftaranByidPendaftaran(idPendaftaran: Int): Pendaftaran
+    suspend fun updatePendaftaran(idPendaftaran : String, pendaftaran: Pendaftaran)
+    suspend fun deletePendaftaran(idPendaftaran: String)
+    suspend fun getPendaftaranByidPendaftaran(idPendaftaran: String): Pendaftaran
 }
 
 class NetworkPendaftaranRepository(
@@ -19,11 +19,11 @@ class NetworkPendaftaranRepository(
         pendaftaranApiService.insertPendaftaran(pendaftaran)
     }
 
-    override suspend fun updatePendaftaran(idPendaftaran: Int, pendaftaran: Pendaftaran) {
+    override suspend fun updatePendaftaran(idPendaftaran: String, pendaftaran: Pendaftaran) {
         pendaftaranApiService.updatePendaftaran(idPendaftaran, pendaftaran)
     }
 
-    override suspend fun deletePendaftaran(idPendaftaran: Int) {
+    override suspend fun deletePendaftaran(idPendaftaran: String) {
         try {
             val response = pendaftaranApiService.deletePendaftaran(idPendaftaran)
             if (!response.isSuccessful) {
@@ -38,7 +38,7 @@ class NetworkPendaftaranRepository(
     }
 
     override suspend fun getPendaftaran(): List<Pendaftaran> = pendaftaranApiService.getPendaftaran()
-    override suspend fun getPendaftaranByidPendaftaran(idPendaftaran: Int): Pendaftaran {
+    override suspend fun getPendaftaranByidPendaftaran(idPendaftaran: String): Pendaftaran {
         return pendaftaranApiService.getPendaftaranByIdPendaftaran(idPendaftaran)
     }
 }

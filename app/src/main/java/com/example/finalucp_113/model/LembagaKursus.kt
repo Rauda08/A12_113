@@ -1,6 +1,5 @@
 package com.example.finalucp_113.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -22,13 +21,13 @@ data class Instruktur (
 )
 
 @Serializable
-data class Kursus (
+data class Kursus(
     val id_kursus: String,
     val nama_kursus: String,
     val deskripsi: String,
-    val kategori : Kategori,
-    val harga : String,
-    val id_instruktur : Instruktur
+    val kategori: String,
+    val harga: String,
+    val id_instruktur: String
 )
 
 @Serializable
