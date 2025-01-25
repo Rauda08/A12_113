@@ -148,7 +148,22 @@ fun InsertBodyInstruktur(
                 textAlign = TextAlign.Center,
                 color = PinkMedium
             )
+            FormInstruktur(
+                insertInstrukturEvent = insertInstrukturUIState.instrukturEvent,
+                onValueChange = onValueChange,
+                errorState = insertInstrukturUIState.isEntryValid,
+                modifier = Modifier.fillMaxWidth()
+            )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = onClick,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = PinkMedium)
+            ) {
+                Text(text = "Simpan", color = Color.White)
+            }
 
         }
     }
@@ -242,7 +257,7 @@ fun FormInstruktur(
                     onValueChange = { onValueChange(insertInstrukturEvent.copy(deskripsi = it)) },
                     label = { Text("Deskripsi") },
                     isError = errorState.deskripsi != null,
-                    placeholder = { Text("Masukkan No Telepon") }
+                    placeholder = { Text("Masukkan Deskripsi") }
                 )
                 if (errorState.deskripsi != null) {
                     Text(text = errorState.deskripsi ?: "", color = Color.Red, fontSize = 12.sp)
