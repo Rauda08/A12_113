@@ -7,9 +7,9 @@ import java.io.IOException
 interface InstrukturRepository {
     suspend fun getInstruktur(): List<Instruktur>
     suspend fun insertInstruktur(instruktur: Instruktur)
-    suspend fun updateInstruktur(idInstruktur : Int, instruktur: Instruktur)
-    suspend fun deleteInstruktur(idInstruktur: Int)
-    suspend fun getInstrukturByidInstruktur(idInstruktur: Int): Instruktur
+    suspend fun updateInstruktur(idInstruktur : String, instruktur: Instruktur)
+    suspend fun deleteInstruktur(idInstruktur: String)
+    suspend fun getInstrukturByidInstruktur(idInstruktur: String): Instruktur
 }
 
 class NetworkInstrukturRepository(
@@ -19,11 +19,11 @@ class NetworkInstrukturRepository(
         instrukturApiService.insertInstruktur(instruktur)
     }
 
-    override suspend fun updateInstruktur(idInstruktur: Int, instruktur: Instruktur) {
+    override suspend fun updateInstruktur(idInstruktur: String, instruktur: Instruktur) {
         instrukturApiService.updateInstruktur(idInstruktur, instruktur)
     }
 
-    override suspend fun deleteInstruktur(idInstruktur: Int) {
+    override suspend fun deleteInstruktur(idInstruktur: String) {
         try {
             val response = instrukturApiService.deleteInstruktur(idInstruktur)
             if (!response.isSuccessful) {
@@ -38,7 +38,7 @@ class NetworkInstrukturRepository(
     }
 
     override suspend fun getInstruktur(): List<Instruktur> = instrukturApiService.getInstruktur()
-    override suspend fun getInstrukturByidInstruktur(idInstruktur: Int): Instruktur {
+    override suspend fun getInstrukturByidInstruktur(idInstruktur: String): Instruktur {
         return instrukturApiService.getInstrukturByIdInstruktur(idInstruktur)
     }
 }

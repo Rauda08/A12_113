@@ -19,14 +19,14 @@ interface InstrukturService {
     suspend fun getInstruktur(): List<Instruktur>
 
     @GET("getbyidinstruktur.php/{id_instruktur}")
-    suspend fun getInstrukturByIdInstruktur(@Query("id_instruktur") idInstruktur: Int): Instruktur
+    suspend fun getInstrukturByIdInstruktur(@Query("id_instruktur") idInstruktur: String): Instruktur
 
     @POST("insertinstruktur.php")
     suspend fun insertInstruktur(@Body instruktur: Instruktur)
 
     @PUT("editinstruktur.php/{id_instruktur}")
-    suspend fun updateInstruktur(@Query("id_instruktur") idInstruktur: Int, @Body instruktur: Instruktur)
+    suspend fun updateInstruktur(@Query("id_instruktur") idInstruktur: String, @Body instruktur: Instruktur)
 
     @DELETE("deleteinstruktur.php/{id_instruktur}")
-    suspend fun deleteInstruktur(@Query("id_instruktur") idInstruktur: Int): Response<Void>
+    suspend fun deleteInstruktur(@Query("id_instruktur") idInstruktur: String): Response<Void>
 }
