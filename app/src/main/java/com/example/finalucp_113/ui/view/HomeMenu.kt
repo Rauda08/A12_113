@@ -27,7 +27,8 @@ object DestinasiHome : DestinasiNavigasi {
 
 @Composable
 fun HomeMenuView(
-    onSiswaClick: () -> Unit
+    onSiswaClick: () -> Unit,
+    onInstrukturClick : () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -63,6 +64,21 @@ fun HomeMenuView(
         ) {
             Text(
                 text = "Menu Siswa",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+
+        Button(
+            onClick = onInstrukturClick,
+            modifier = Modifier
+                .padding(50.dp)
+                .fillMaxWidth(0.8f),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD05E99)) // Light pink for button
+        ) {
+            Text(
+                text = "Menu Instruktur",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
