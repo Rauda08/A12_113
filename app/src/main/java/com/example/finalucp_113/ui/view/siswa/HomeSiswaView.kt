@@ -1,5 +1,6 @@
 package com.example.finalucp_113.ui.view.siswa
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
@@ -50,7 +52,7 @@ fun HomeSiswaView(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
                 CostumeTopAppBar(
-                    title = "Home Siswa",
+                    title = "Home Data Siswa",
                     scrollBehavior = scrollBehavior,
                     canNavigateBack = false,
                     onRefresh = {
@@ -62,7 +64,7 @@ fun HomeSiswaView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddSiswa,
-                containerColor = Color(0xFFF66596),
+                containerColor = Color(0xFF46051C),
                 contentColor = Color.White,
                 modifier = Modifier.padding(16.dp)
             ) {
@@ -146,44 +148,59 @@ fun SiswaCard(
     onDeleteClick: (Siswa) -> Unit = {}
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 8.dp, vertical = 3.dp),
         shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFC1E3)), // Warna latar belakang lembut
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = siswa.id_siswa,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-
-                Text(
                     text = siswa.nama_siswa,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium.copy(fontSize = 25.sp),
+                    color = Color(0xFF46051C)
                 )
-                Spacer(Modifier.weight(1f))
-                IconButton(onClick = { onDeleteClick(siswa) }) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = null,
-                    )
-                }
                 Text(
                     text = siswa.email,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    color = Color(0xFF46051C)
                 )
             }
 
-            Text(
-                text = siswa.no_telepon,
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    text = "ID: ${siswa.id_siswa}",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    color = Color(0xFF46051C)
+                )
+                Text(
+                    text = "Telepon: ${siswa.no_telepon}",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    color = Color(0xFF46051C)
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                IconButton(onClick = { onDeleteClick(siswa) }) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Hapus siswa",
+                        tint = Color(0xFF4D1414) // Warna merah lembut
+                    )
+                }
+            }
         }
     }
 }
