@@ -4,7 +4,6 @@ import DestinasiUpdateSiswa
 import UpdateSiswaView
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -13,6 +12,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.finalucp_113.ui.view.DestinasiHome
 import com.example.finalucp_113.ui.view.HomeMenuView
+import com.example.finalucp_113.ui.view.instruktur.DestinasiDetailInstruktur
+import com.example.finalucp_113.ui.view.instruktur.DestinasiHomeInstruktur
+import com.example.finalucp_113.ui.view.instruktur.DestinasiInsertInstruktur
+import com.example.finalucp_113.ui.view.instruktur.DestinasiUpdateInstruktur
+import com.example.finalucp_113.ui.view.instruktur.DetailInstrukturView
+import com.example.finalucp_113.ui.view.instruktur.HomeInstrukturView
+import com.example.finalucp_113.ui.view.instruktur.InsertInstrukturView
+import com.example.finalucp_113.ui.view.instruktur.UpdateInstrukturView
 import com.example.finalucp_113.ui.view.siswa.DestinasiDetailSiswa
 import com.example.finalucp_113.ui.view.siswa.DestinasiHomeSiswa
 import com.example.finalucp_113.ui.view.siswa.DestinasiInsertSiswa
@@ -35,6 +42,7 @@ fun PengelolaHalaman(
         ) {
             HomeMenuView(
                 onSiswaClick = { navController.navigate(DestinasiHomeSiswa.route) },
+                onInstrukturClick = { navController.navigate(DestinasiHomeInstruktur.route)}
             )
         }
         composable(
@@ -102,6 +110,80 @@ fun PengelolaHalaman(
                 onNavigateUp = {
                     navController.navigate(
                         DestinasiUpdateSiswa.route
+                    ){
+                        popUpTo(DestinasiHome.route){
+                            inclusive = true
+                        }
+                    }
+                },
+            )
+        }
+
+        composable(
+            route = DestinasiHomeInstruktur.route
+        ) {
+            HomeInstrukturView(
+                onAddInstruktur = {
+                    navController.navigate(DestinasiInsertInstruktur.route)
+                },
+                onDetailClick = { id_instruktur ->
+                    navController.navigate("${DestinasiDetailInstruktur.route}/$id_instruktur")
+                },
+                modifier = modifier
+            )
+        }
+
+        composable(
+            route = DestinasiInsertInstruktur.route
+        ) {
+            InsertInstrukturView(
+                onBack = {
+                    navController.popBackStack()
+                },
+                onNavigate = {
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+            )
+        }
+
+        composable(
+            route = DestinasiDetailInstruktur.routeWithArgs,
+            arguments = listOf(
+                navArgument(DestinasiDetailInstruktur.id_instruktur) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val id_instruktur = it.arguments?.getString(DestinasiDetailInstruktur.id_instruktur)
+
+            id_instruktur?.let { id_instruktur ->
+                DetailInstrukturView(
+                    navigateBack = {
+                        navController.popBackStack()
+                    },
+                    onEditClick = { id_instruktur ->
+                        navController.navigate("${DestinasiUpdateInstruktur.route}/$id_instruktur")
+                    }
+                )
+            }
+        }
+
+        composable(
+            DestinasiUpdateInstruktur.routeWithArgs,
+            arguments = listOf(
+                navArgument (DestinasiUpdateInstruktur.id_instruktur) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            UpdateInstrukturView(
+                navigateBack = {
+                    navController.popBackStack()
+                },
+                onNavigateUp = {
+                    navController.navigate(
+                        DestinasiUpdateInstruktur.route
                     ){
                         popUpTo(DestinasiHome.route){
                             inclusive = true
