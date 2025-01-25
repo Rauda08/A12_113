@@ -42,7 +42,7 @@ fun UpdateSiswaView(
     ) { innerPadding ->
         InsertBodySiswa(
             insertSiswaUIState = viewModel.uiState,
-            onValueChange = viewModel::updateInsertMhsState,
+            onValueChange = viewModel::updateInsertSiswaState,
             onClick = {
                 coroutineScope.launch {
                     viewModel.UpdateSiswa()

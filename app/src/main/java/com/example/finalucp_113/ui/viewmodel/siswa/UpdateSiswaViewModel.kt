@@ -25,7 +25,7 @@ class UpdateSiswaViewModel(
         }
     }
 
-    fun updateInsertMhsState(insertUiEvent: InsertSiswaEvent) {
+    fun updateInsertSiswaState(insertUiEvent: InsertSiswaEvent) {
         uiState = InsertSiswaUIState(siswaEvent = insertUiEvent)
     }
 
