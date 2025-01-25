@@ -17,7 +17,7 @@ data class Instruktur (
     val id_instruktur: String,
     val nama_instruktur: String,
     val email: String,
-    val nomor_telepon : String,
+    val no_telepon : String,
     val deskripsi : String
 )
 
