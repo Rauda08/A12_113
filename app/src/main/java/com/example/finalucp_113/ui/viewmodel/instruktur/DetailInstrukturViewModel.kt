@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalucp_113.model.Instruktur
 import com.example.finalucp_113.repository.InstrukturRepository
+import com.example.finalucp_113.ui.view.instruktur.DestinasiDetailInstruktur
 import kotlinx.coroutines.launch
 import java.io.IOException
 
