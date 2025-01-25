@@ -11,18 +11,19 @@ import kotlinx.coroutines.launch
 
 class InsertSiswaViewModel(private val siswaRepository: SiswaRepository) : ViewModel() {
 
-    var uiState by mutableStateOf(SiswaUIState())
+    var uiState by mutableStateOf(InsertSiswaUIState())
 
-    fun updateState(siswaEvent: SiswaEvent) {
+    fun updateState(insertSiswaEvent: InsertSiswaEvent) {
         uiState = uiState.copy(
-            siswaEvent = siswaEvent
+            siswaEvent = insertSiswaEvent
         )
     }
 
     private fun validateFields(): Boolean {
         val event = uiState.siswaEvent
         val errorState = FormErrorState(
-            id_siswa = if (event.id_siswa == 0) "ID Siswa tidak boleh kosong" else null,
+
+            id_siswa = if (event.id_siswa.isNotEmpty()) null else "ID Siswa tidak boleh kosong",
             nama_siswa = if (event.nama_siswa.isNotEmpty()) null else "Nama tidak boleh kosong",
             email = if (event.email.isNotEmpty())  null else "Email tidak boleh kosong",
             no_telepon = if (event.no_telepon.isNotEmpty()) null else "No Telepon tidak boleh kosong"
@@ -39,7 +40,7 @@ class InsertSiswaViewModel(private val siswaRepository: SiswaRepository) : ViewM
                     siswaRepository.insertSiswa(currentEvent.toSiswa())
                     uiState = uiState.copy(
                         snackBarMessage = "Data Berhasil Disimpan",
-                        siswaEvent = SiswaEvent(),  // Reset input form
+                        siswaEvent = InsertSiswaEvent(),  // Reset input form
                         isEntryValid = FormErrorState() // Reset error state
                     )
                 } catch (e: Exception) {
@@ -62,10 +63,17 @@ class InsertSiswaViewModel(private val siswaRepository: SiswaRepository) : ViewM
     }
 }
 
-data class SiswaUIState(
-    val siswaEvent: SiswaEvent = SiswaEvent(),
+data class InsertSiswaUIState(
+    val siswaEvent: InsertSiswaEvent = InsertSiswaEvent(),
     val isEntryValid: FormErrorState = FormErrorState(),
     val snackBarMessage: String? = null
+)
+
+data class  InsertSiswaEvent (
+    val  id_siswa: String =  "" ,
+    val  nama_siswa :  String  =  "" ,
+    val  email :  String  =  "" ,
+    val  no_telepon :  String  =  ""
 )
 
 data class FormErrorState(
@@ -78,16 +86,19 @@ data class FormErrorState(
         return id_siswa == null && nama_siswa == null && email == null && no_telepon == null
     }
 }
-fun SiswaEvent.toSiswa(): Siswa = Siswa(
+fun InsertSiswaEvent.toSiswa(): Siswa = Siswa(
     id_siswa = id_siswa,
     nama_siswa = nama_siswa,
     email = email,
     no_telepon = no_telepon
 )
+fun  Siswa . toUiStateSiswa () :  InsertSiswaUIState  =  InsertSiswaUIState (
+    siswaEvent =  toInsertSiswaUiEvent ()
+)
 
-data class SiswaEvent(
-    val id_siswa: Int? = 0,
-    val nama_siswa: String = "",
-    val email: String = "",
-    val no_telepon: String = ""
+fun  Siswa . toInsertSiswaUiEvent () :  InsertSiswaEvent  =  InsertSiswaEvent (
+    id_siswa =  id_siswa,
+    nama_siswa =  nama_siswa,
+    email =  email,
+    no_telepon =  no_telepon
 )

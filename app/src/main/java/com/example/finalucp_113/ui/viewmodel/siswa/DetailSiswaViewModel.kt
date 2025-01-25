@@ -43,3 +43,11 @@ class DetailsiswaViewModel(
         }
     }
 }
+fun Siswa.toDetailUiEvent () : InsertSiswaEvent {
+    return InsertSiswaEvent(
+        id_siswa = id_siswa,
+        nama_siswa = nama_siswa,
+        email = email,
+        no_telepon = no_telepon
+    )
+}

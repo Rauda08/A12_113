@@ -1,6 +1,7 @@
 package com.example.finalucp_113.ui.customwidget
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
@@ -12,17 +13,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(
+fun CostumeTopAppBar(
     title: String,
-    canNavigateBack: Boolean,
+    canNavigateBack : Boolean,
     modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = null,
+    scrollBehavior: TopAppBarScrollBehavior ?= null,
     navigateUp: () -> Unit = {},
-    onRefresh: () -> Unit = {}
-) {
+    onRefresh: () -> Unit = {},
+){
     CenterAlignedTopAppBar(
         title = { Text(title) },
         actions = {
@@ -32,7 +34,7 @@ fun TopAppBar(
                 modifier = Modifier.clickable { onRefresh() }
             )
         },
-        modifier = modifier,
+        modifier = modifier.offset(y = (-50).dp),
         scrollBehavior = scrollBehavior,
         navigationIcon = {
             if (canNavigateBack) {

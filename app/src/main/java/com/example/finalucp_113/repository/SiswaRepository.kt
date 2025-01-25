@@ -7,9 +7,9 @@ import java.io.IOException
 interface SiswaRepository{
     suspend fun getSiswa(): List<Siswa>
     suspend fun insertSiswa(siswa: Siswa)
-    suspend fun updateSiswa(idSiswa : Int, siswa: Siswa)
-    suspend fun deleteSiswa(idSiswa: Int)
-    suspend fun getSiswaByidSiswa(idSiswa: Int): Siswa
+    suspend fun updateSiswa(idSiswa : String, siswa: Siswa)
+    suspend fun deleteSiswa(idSiswa: String)
+    suspend fun getSiswaByidSiswa(idSiswa: String): Siswa
 }
 
 class NetworkSiswaRepository(
@@ -19,11 +19,11 @@ class NetworkSiswaRepository(
         siswaApiService.insertSiswa(siswa)
     }
 
-    override suspend fun updateSiswa(idSiswa: Int, siswa: Siswa) {
+    override suspend fun updateSiswa(idSiswa: String, siswa: Siswa) {
         siswaApiService.updateSiswa(idSiswa,siswa)
     }
 
-    override suspend fun deleteSiswa(idSiswa: Int) {
+    override suspend fun deleteSiswa(idSiswa: String) {
         try {
             val response = siswaApiService.deleteSiswa(idSiswa)
             if (!response.isSuccessful) {
@@ -38,7 +38,7 @@ class NetworkSiswaRepository(
     }
 
     override suspend fun getSiswa(): List<Siswa> = siswaApiService.getSiswa()
-    override suspend fun getSiswaByidSiswa(idSiswa: Int): Siswa {
+    override suspend fun getSiswaByidSiswa(idSiswa: String): Siswa {
         return siswaApiService.getSiswaByIdSiswa(idSiswa)
     }
 }

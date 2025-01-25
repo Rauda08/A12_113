@@ -16,17 +16,17 @@ interface PendaftaranService {
         "Accept: application/json",
         "Content-Type: application/json"
     )
-    @GET("getPendaftaran.php")
+    @GET("getpendaftaran.php")
     suspend fun getPendaftaran(): List<Pendaftaran>
-    @GET("getbyidPendaftaran.php/{id_pendaftaran}")
+    @GET("getbyidpendaftaran.php/{id_pendaftaran}")
     suspend fun getPendaftaranByIdPendaftaran(@Query("id_pendaftaran") idPendaftaran: Int): Pendaftaran
 
-    @POST("insertPendaftaran.php")
+    @POST("insertpendaftaran.php")
     suspend fun insertPendaftaran(@Body pendaftaran: Pendaftaran)
 
-    @PUT("editPendaftaran.php/{id_pendaftaran}")
+    @PUT("editpendaftaran.php/{id_pendaftaran}")
     suspend fun updatePendaftaran(@Query("id_pendaftaran") idPendaftaran: Int, @Body pendaftaran: Pendaftaran)
 
-    @DELETE("deletePendaftaran.php/{id_pendaftaran}")
+    @DELETE("deletependaftaran.php/{id_pendaftaran}")
     suspend fun deletePendaftaran(@Query("id_pendaftaran") pendaftaran: Int): Response<Void>
 }

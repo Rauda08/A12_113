@@ -1,5 +1,7 @@
 package com.example.finalucp_113.ui.navigation
 
+import DestinasiUpdateSiswa
+import UpdateSiswaView
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -79,10 +81,34 @@ fun PengelolaHalaman(
                         navController.popBackStack()
                     },
                     onEditClick = { id_siswa ->
-                        navController.navigate("${DestinasiDetailSiswa.route}/$id_siswa")
+                        navController.navigate("${DestinasiUpdateSiswa.route}/$id_siswa")
                     }
                 )
             }
+        }
+
+        composable(
+            DestinasiUpdateSiswa.routeWithArgs,
+            arguments = listOf(
+                navArgument (DestinasiUpdateSiswa.id_siswa) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            UpdateSiswaView(
+                navigateBack = {
+                    navController.popBackStack()
+                },
+                onNavigateUp = {
+                    navController.navigate(
+                        DestinasiUpdateSiswa.route
+                    ){
+                        popUpTo(DestinasiHome.route){
+                            inclusive = true
+                        }
+                    }
+                },
+            )
         }
     }
 }

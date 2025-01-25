@@ -7,10 +7,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalucp_113.repository.SiswaRepository
-import com.example.finalucp_113.ui.view.siswa.DestinasiUpdateSiswa
 import kotlinx.coroutines.launch
 
-class EditSiswaViewModel(
+class UpdateSiswaViewModel(
     savedStateHandle: SavedStateHandle,
     private val siswaRepository: SiswaRepository
 ) : ViewModel() {
@@ -30,7 +29,7 @@ class EditSiswaViewModel(
         uiState = InsertSiswaUIState(siswaEvent = insertUiEvent)
     }
 
-    suspend fun editSiswa(){
+    suspend fun UpdateSiswa(){
         viewModelScope.launch {
             try {
                 siswaRepository.updateSiswa(id_siswa, uiState.siswaEvent.toSiswa())

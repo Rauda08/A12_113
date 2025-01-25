@@ -8,44 +8,49 @@ import androidx.lifecycle.viewModelScope
 import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.repository.SiswaRepository
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.IOException
 
-sealed class  HomeUiState  {
-    data class  Success ( val  siswa :  List <Siswa> )  :  HomeUiState ()
-    object  Error  :  HomeUiState ()
-    object  Loading  :  HomeUiState ()
+sealed class SiswaUiState {
+    data class Success(val siswa: List<Siswa>) : SiswaUiState()
+    object Error : SiswaUiState()
+    object Loading : SiswaUiState()
 }
 
-class  HomeViewModel ( private val  siswa : SiswaRepository)  :  ViewModel() {
-    var  siswaUIState :  HomeUiState  by  mutableStateOf ( HomeUiState . Loading )
+class HomeSiswaViewModel(private val siswaRepository: SiswaRepository) : ViewModel() {
+
+    var siswaUIState: SiswaUiState by mutableStateOf(SiswaUiState.Success(emptyList())) // Inisialisasi dengan Success kosong
         private set
 
-    init  {
-        getSiswa()
+    init {
+        // Cek apakah sudah ada data siswa sebelum memuatnya
+        if ((siswaUIState as? SiswaUiState.Success)?.siswa?.isEmpty() == true) {
+            getSiswa()
+        }
     }
 
-    fun  getSiswa () {
-        viewModelScope . launch  {
-            siswaUIState  =  HomeUiState . Loading
-            siswaUIState  = try  {
-                HomeUiState . Success (siswa. getSiswa ())
-            }  catch  (e : IOException) {
-                HomeUiState . Error
-            }  catch  (e : coil.network.HttpException) {
-                HomeUiState . Error
+    fun getSiswa() {
+        viewModelScope.launch {
+            siswaUIState = SiswaUiState.Loading
+            siswaUIState = try {
+                val siswaList = siswaRepository.getSiswa()
+                SiswaUiState.Success(siswaList)
+            } catch (e: IOException) {
+                SiswaUiState.Error
+            } catch (e: HttpException) {
+                SiswaUiState.Error
             }
         }
     }
 
-
-    fun  deleteSiswa ( idSiswa :  Int ) {
+    fun  deletesiswa ( id_siswa :  String ) {
         viewModelScope . launch  {
             try  {
-                siswa. deleteSiswa ( idSiswa )
+                siswaRepository. deleteSiswa ( id_siswa )
             }  catch  (e : IOException){
-                HomeUiState . Error
-            }  catch  (e : coil.network.HttpException){
-                HomeUiState . Error
+                SiswaUiState . Error
+            }  catch  (e : HttpException){
+                SiswaUiState . Error
             }
         }
     }

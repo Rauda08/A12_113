@@ -25,7 +25,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,21 +36,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.theme.PinkLight
 import com.example.finalucp_113.ui.theme.PinkMedium
 import com.example.finalucp_113.ui.viewmodel.PenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.FormErrorState
+import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaEvent
+import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaUIState
 import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaViewModel
-import com.example.finalucp_113.ui.viewmodel.siswa.SiswaEvent
-import com.example.finalucp_113.ui.viewmodel.siswa.SiswaUIState
+
 import kotlinx.coroutines.launch
 
-object DestinasiInsertSiswa {
-    const val route: String = "insert_siswa"
+object DestinasiInsertSiswa : DestinasiNavigasi {
+    override val route = "insert_siswa"
+    override val titleRes = "Insert Siswa"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -82,7 +83,7 @@ fun InsertSiswaView(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "Tambah Data Siswa",
+                        text = "Tambah Siswa",
                         style = MaterialTheme.typography.titleLarge,
                         color = Color.White
                     )
@@ -110,7 +111,7 @@ fun InsertSiswaView(
                 .background(MaterialTheme.colorScheme.background)
         ) {
             InsertBodySiswa(
-                uiState = uiState,
+                insertSiswaUIState = viewModel.uiState,
                 onValueChange = { updateEvent -> viewModel.updateState(updateEvent) },
                 onClick = {
                     viewModel.saveData()
@@ -121,11 +122,12 @@ fun InsertSiswaView(
     }
 }
 
+
 @Composable
 fun InsertBodySiswa(
     modifier: Modifier = Modifier,
-    onValueChange: (SiswaEvent) -> Unit,
-    uiState: SiswaUIState,
+    onValueChange: (InsertSiswaEvent) -> Unit,
+    insertSiswaUIState: InsertSiswaUIState,
     onClick: () -> Unit
 ) {
     Card(
@@ -149,9 +151,9 @@ fun InsertBodySiswa(
             )
 
             FormSiswa(
-                siswaEvent = uiState.siswaEvent,
+                insertSiswaEvent = insertSiswaUIState.siswaEvent,
                 onValueChange = onValueChange,
-                errorState = uiState.isEntryValid,
+                errorState = insertSiswaUIState.isEntryValid,
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -168,32 +170,26 @@ fun InsertBodySiswa(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormSiswa(
-    siswaEvent: SiswaEvent,
-    onValueChange: (SiswaEvent) -> Unit,
+    insertSiswaEvent: InsertSiswaEvent,
+    onValueChange: (InsertSiswaEvent) -> Unit,
     errorState: FormErrorState,
     modifier: Modifier = Modifier
 ) {
 
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
-        value = siswaEvent.id_siswa?.toString() ?: "",
-        onValueChange = { newValue ->
-            val newIdSiswa =
-                newValue.toIntOrNull()
-            onValueChange(siswaEvent.copy(id_siswa = newIdSiswa))
-        },
+        value = insertSiswaEvent.id_siswa,
+        onValueChange = { onValueChange(insertSiswaEvent.copy(id_siswa = it))},
         label = { Text("ID Siswa") },
         isError = errorState.id_siswa != null,  // Tampilkan error jika ada
         placeholder = { Text("Masukkan ID Siswa") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = PinkMedium) // Pink border
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
 
     if (errorState.id_siswa != null) {
-        Text(text = errorState.id_siswa ?: "", color = Color.Red, fontSize = 12.sp)
+        Text(text = errorState.id_siswa, color = Color.Red, fontSize = 12.sp)
     }
     Spacer(modifier = Modifier.height(16.dp)
 
@@ -203,27 +199,56 @@ fun FormSiswa(
     Column(modifier = modifier.fillMaxWidth()) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = siswaEvent.nama_siswa,
-            onValueChange = { onValueChange(siswaEvent.copy(nama_siswa = it)) },
+            value = insertSiswaEvent.nama_siswa,
+            onValueChange = { onValueChange(insertSiswaEvent.copy(nama_siswa = it)) },
             label = { Text("Nama") },
             isError = errorState.nama_siswa != null,
-            placeholder = { Text("Masukkan nama") },
-            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = PinkMedium) // Pink border
+            placeholder = { Text("Masukkan nama") }
         )
         if (errorState.nama_siswa != null) {
             Text(text = errorState.nama_siswa ?: "", color = Color.Red, fontSize = 12.sp)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp)
+        )
 
+        Column(
+            modifier = modifier.fillMaxWidth()) {
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = insertSiswaEvent.email,
+                onValueChange = { onValueChange(insertSiswaEvent.copy(email = it)) },
+                label = { Text("Email") },
+                isError = errorState.email != null,
+                placeholder = { Text("Masukkan Email") }
+            )
+            if (errorState.email != null) {
+                Text(text = errorState.email ?: "", color = Color.Red, fontSize = 12.sp)
+            }
+
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
+            Column(modifier = modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = insertSiswaEvent.no_telepon,
+                    onValueChange = { onValueChange(insertSiswaEvent.copy(no_telepon = it)) },
+                    label = { Text("No Telepon") },
+                    isError = errorState.no_telepon != null,
+                    placeholder = { Text("Masukkan No Telepon") }
+                )
+                if (errorState.no_telepon != null) {
+                    Text(text = errorState.no_telepon ?: "", color = Color.Red, fontSize = 12.sp)
+                }
+
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+            }
+
+        }
     }
 }
 
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewInsertSiswaView() {
-    MaterialTheme {
-        InsertSiswaView(onBack = {}, onNavigate = {})
-    }
-}

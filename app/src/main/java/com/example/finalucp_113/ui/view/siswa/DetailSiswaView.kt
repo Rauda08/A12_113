@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -147,9 +146,9 @@ fun DetailCard(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            ComponentDetailSiswa(judul = "NIM", isinya = siswa.id_siswa)
+            ComponentDetailSiswa(judul = "Id Siswa", isinya = siswa.id_siswa)
             Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailSiswa(judul = "Nama", isinya = siswa.nama_siswa)
+            ComponentDetailSiswa(judul = "Nama Siswa", isinya = siswa.nama_siswa)
             Spacer(modifier = Modifier.height(8.dp))
             ComponentDetailSiswa(judul = "Email", isinya = siswa.email)
             Spacer(modifier = Modifier.height(8.dp))

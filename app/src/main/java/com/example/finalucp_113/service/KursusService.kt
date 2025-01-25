@@ -15,18 +15,18 @@ interface KursusService {
         "Accept: application/json",
         "Content-Type: application/json"
     )
-    @GET("getKursus.php")
+    @GET("getkursus.php")
     suspend fun getKursus(): List<Kursus>
 
-    @GET("getbyidKursus.php/{id_kursus}")
+    @GET("getbyidkursus.php/{id_kursus}")
     suspend fun getKursusByIdKursus(@Query("id_kursus") idKursus: Int): Kursus
 
-    @POST("insertKursus.php")
+    @POST("insertkursus.php")
     suspend fun insertKursus(@Body kursus: Kursus)
 
-    @PUT("editKursus.php/{id_kursus}")
+    @PUT("editkursus.php/{id_kursus}")
     suspend fun updateKursus(@Query("id_kursus") idKursus: Int, @Body kursus: Kursus)
 
-    @DELETE("deleteKursus.php/{id_kursus}")
+    @DELETE("deletekursus.php/{id_kursus}")
     suspend fun deleteKursus(@Query("id_kursus") idKursus: Int): Response<Void>
 }

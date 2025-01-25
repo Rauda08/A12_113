@@ -19,15 +19,15 @@ interface SiswaService {
     suspend fun getSiswa(): List<Siswa>
 
     @GET("getbyidsiswa.php/{id_siswa}")
-    suspend fun getSiswaByIdSiswa(@Query("id_siswa") idSiswa: Int): Siswa
+    suspend fun getSiswaByIdSiswa(@Query("id_siswa") idSiswa: String): Siswa
 
     @POST("insertsiswa.php")
     suspend fun insertSiswa(@Body siswa: Siswa)
 
     @PUT("editsiswa.php/{id_siswa}")
-    suspend fun updateSiswa(@Query("id_siswa") idSiswa: Int, @Body siswa: Siswa)
+    suspend fun updateSiswa(@Query("id_siswa") idSiswa: String, @Body siswa: Siswa)
 
     @DELETE("deletesiswa.php/{id_siswa}")
-    suspend fun deleteSiswa(@Query("id_siswa") siswa: Int): Response<Void>
+    suspend fun deleteSiswa(@Query("id_siswa") siswa: String): Response<Void>
 
 }
