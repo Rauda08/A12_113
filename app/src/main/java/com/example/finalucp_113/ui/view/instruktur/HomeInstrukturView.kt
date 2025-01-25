@@ -227,7 +227,7 @@ fun InstrukturCard(
         AlertDialog(
             onDismissRequest = { showDialog = false },
             title = { Text("Konfirmasi Hapus") },
-            text = { Text("Apakah Anda yakin ingin menghapus data siswa ini?") },
+            text = { Text("Apakah Anda yakin ingin menghapus data Instruktur ini?") },
             confirmButton = {
                 TextButton(
                     onClick = {

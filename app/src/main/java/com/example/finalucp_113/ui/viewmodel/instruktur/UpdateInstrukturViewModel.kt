@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalucp_113.repository.InstrukturRepository
+import com.example.finalucp_113.ui.view.instruktur.DestinasiUpdateInstruktur
 import kotlinx.coroutines.launch
 
 class UpdateInstrukturViewModel(

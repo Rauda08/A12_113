@@ -6,6 +6,10 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.finalucp_113.LembagaKursusAplications
+import com.example.finalucp_113.ui.viewmodel.instruktur.DetailInstrukturViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.HomeInstrukturViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.InsertInstrukturViewmodel
+import com.example.finalucp_113.ui.viewmodel.instruktur.UpdateInstrukturViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.HomeSiswaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaViewModel
@@ -26,7 +30,20 @@ object PenyediaViewModel {
                 siswaRepository = lembagakursusApp().container.siswaRepository
             )}
 
-        //initializer { UpdateSiswaViewModel(createSavedStateHandle(), siswaRepository = lembagakursusApp().container.siswaRepository) }
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        initializer { HomeInstrukturViewModel(lembagakursusApp().container.instrukturRepository) }
+        initializer { InsertInstrukturViewmodel(lembagakursusApp().container.instrukturRepository)}
+        initializer {
+            DetailInstrukturViewModel(
+                savedStateHandle = this.createSavedStateHandle(),
+                instrukturRepository = lembagakursusApp().container.instrukturRepository
+            )}
+        initializer {
+            UpdateInstrukturViewModel(
+                savedStateHandle = this.createSavedStateHandle(),
+                instrukturRepository = lembagakursusApp().container.instrukturRepository
+            )}
     }
 }
 

@@ -50,6 +50,11 @@ fun CostumeTopAppBar(
                 }
             }
         },
+        actions = {
+            IconButton(onClick = onRefresh) {
+                Icon(imageVector = Icons.Filled.Refresh, contentDescription = "Refresh")
+            }
+        },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = Color(0xFF46051C)
         )

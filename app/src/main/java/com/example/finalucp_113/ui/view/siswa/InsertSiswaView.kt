@@ -47,7 +47,6 @@ import com.example.finalucp_113.ui.viewmodel.siswa.FormErrorState
 import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaEvent
 import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaUIState
 import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaViewModel
-
 import kotlinx.coroutines.launch
 
 object DestinasiInsertSiswa : DestinasiNavigasi {
