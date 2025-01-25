@@ -191,6 +191,23 @@ fun InstrukturCard(
                 )
             }
 
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    text = "ID: ${instruktur.id_instruktur}",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    color = Color(0xFF46051C)
+                )
+                Text(
+                    text = "Telepon: ${instruktur.no_telepon}",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    color = Color(0xFF46051C)
+                )
+                Text(
+                    text = "Deskripsi: ${instruktur.deskripsi}",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                    color = Color(0xFF46051C)
+                )
+            }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -205,5 +222,30 @@ fun InstrukturCard(
                 }
             }
         }
+    }
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text("Konfirmasi Hapus") },
+            text = { Text("Apakah Anda yakin ingin menghapus data siswa ini?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onDeleteClick(instruktur)
+                        showDialog = false
+                    }
+                ) {
+                    Text("Hapus")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showDialog = false }
+                ) {
+                    Text("Batal")
+                }
+            },
+        )
+
     }
 }
