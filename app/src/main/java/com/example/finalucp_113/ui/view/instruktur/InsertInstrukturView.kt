@@ -149,6 +149,110 @@ fun InsertBodyInstruktur(
                 color = PinkMedium
             )
 
+
+        }
+    }
+}
+
+@Composable
+fun FormInstruktur(
+    insertInstrukturEvent: InsertInstrukturEvent,
+    onValueChange: (InsertInstrukturEvent) -> Unit,
+    errorState: FormErrorState,
+    modifier: Modifier = Modifier
+) {
+
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = insertInstrukturEvent.id_instruktur,
+        onValueChange = { onValueChange(insertInstrukturEvent.copy(id_instruktur = it)) },
+        label = { Text("ID Instruktur") },
+        isError = errorState.id_instruktur != null,  // Tampilkan error jika ada
+        placeholder = { Text("Masukkan ID Instruktur") },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+    )
+
+    if (errorState.id_instruktur != null) {
+        Text(text = errorState.id_instruktur, color = Color.Red, fontSize = 12.sp)
+    }
+    Spacer(
+        modifier = Modifier.height(16.dp)
+
+    )
+
+
+    Column(modifier = modifier.fillMaxWidth()) {
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = insertInstrukturEvent.nama_instruktur,
+            onValueChange = { onValueChange(insertInstrukturEvent.copy(nama_instruktur = it)) },
+            label = { Text("Nama") },
+            isError = errorState.nama_instruktur != null,
+            placeholder = { Text("Masukkan nama") }
+        )
+        if (errorState.nama_instruktur != null) {
+            Text(text = errorState.nama_instruktur ?: "", color = Color.Red, fontSize = 12.sp)
+        }
+
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
+
+        Column(
+            modifier = modifier.fillMaxWidth()
+        ) {
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = insertInstrukturEvent.email,
+                onValueChange = { onValueChange(insertInstrukturEvent.copy(email = it)) },
+                label = { Text("Email") },
+                isError = errorState.email != null,
+                placeholder = { Text("Masukkan Email") }
+            )
+            if (errorState.email != null) {
+                Text(text = errorState.email ?: "", color = Color.Red, fontSize = 12.sp)
+            }
+
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
+            Column(modifier = modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = insertInstrukturEvent.no_telepon,
+                    onValueChange = { onValueChange(insertInstrukturEvent.copy(no_telepon = it)) },
+                    label = { Text("No Telepon") },
+                    isError = errorState.no_telepon != null,
+                    placeholder = { Text("Masukkan No Telepon") }
+                )
+                if (errorState.no_telepon != null) {
+                    Text(text = errorState.no_telepon ?: "", color = Color.Red, fontSize = 12.sp)
+                }
+
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+            }
+
+            Column(modifier = modifier.fillMaxWidth()) {
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = insertInstrukturEvent.deskripsi,
+                    onValueChange = { onValueChange(insertInstrukturEvent.copy(deskripsi = it)) },
+                    label = { Text("Deskripsi") },
+                    isError = errorState.deskripsi != null,
+                    placeholder = { Text("Masukkan No Telepon") }
+                )
+                if (errorState.deskripsi != null) {
+                    Text(text = errorState.deskripsi ?: "", color = Color.Red, fontSize = 12.sp)
+                }
+
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+            }
+
         }
     }
 }
