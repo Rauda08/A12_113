@@ -42,8 +42,8 @@ import com.example.finalucp_113.model.Instruktur
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.viewmodel.instruktur.HomeInstrukturViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.InstrukturPenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.instruktur.InstrukturUiState
-import com.example.finalucp_113.ui.viewmodel.instruktur.PenyediaViewModel
 
 object DestinasiHomeInstruktur : DestinasiNavigasi {
     override val route = "home_instruktur"
@@ -56,7 +56,7 @@ fun HomeInstrukturView(
     modifier: Modifier = Modifier,
     onAddInstruktur: () -> Unit = {},
     onDetailClick: (String) -> Unit = {},
-    viewModel: HomeInstrukturViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: HomeInstrukturViewModel = viewModel(factory = InstrukturPenyediaViewModel.Factory)
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 

@@ -42,8 +42,8 @@ import com.example.finalucp_113.model.Kursus
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.viewmodel.kursus.HomeKursusViewModel
+import com.example.finalucp_113.ui.viewmodel.kursus.KursusPenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.kursus.KursusUiState
-import com.example.finalucp_113.ui.viewmodel.kursus.PenyediaViewModel
 
 object DestinasiHomeKursus : DestinasiNavigasi {
     override val route = "home_kursus"
@@ -56,7 +56,7 @@ fun HomeKursusView(
     modifier: Modifier = Modifier,
     onAddKursus: () -> Unit = {},
     onDetailClick: (String) -> Unit = {},
-    viewModel: HomeKursusViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: HomeKursusViewModel = viewModel(factory = KursusPenyediaViewModel.Factory)
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 

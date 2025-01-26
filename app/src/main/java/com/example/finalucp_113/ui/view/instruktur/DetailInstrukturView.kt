@@ -37,7 +37,7 @@ import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.viewmodel.instruktur.DetailInstrukturUiState
 import com.example.finalucp_113.ui.viewmodel.instruktur.DetailInstrukturViewModel
-import com.example.finalucp_113.ui.viewmodel.instruktur.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.InstrukturPenyediaViewModel
 
 object DestinasiDetailInstruktur : DestinasiNavigasi {
     override val route = "id_detail"
@@ -52,7 +52,7 @@ fun DetailInstrukturView(
     modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
     onEditClick: (String) -> Unit,
-    detailViewModel: DetailInstrukturViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    detailViewModel: DetailInstrukturViewModel = viewModel(factory = InstrukturPenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 

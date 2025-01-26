@@ -10,7 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.view.siswa.InsertBodySiswa
-import com.example.finalucp_113.ui.viewmodel.siswa.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.siswa.SiswaPenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.UpdateSiswaViewModel
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,7 @@ fun UpdateSiswaView(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: UpdateSiswaViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: UpdateSiswaViewModel = viewModel(factory = SiswaPenyediaViewModel.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
 

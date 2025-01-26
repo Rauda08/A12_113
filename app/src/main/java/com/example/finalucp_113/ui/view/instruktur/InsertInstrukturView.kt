@@ -46,7 +46,7 @@ import com.example.finalucp_113.ui.viewmodel.instruktur.FormErrorState
 import com.example.finalucp_113.ui.viewmodel.instruktur.InsertInstrukturEvent
 import com.example.finalucp_113.ui.viewmodel.instruktur.InsertInstrukturUIState
 import com.example.finalucp_113.ui.viewmodel.instruktur.InsertInstrukturViewmodel
-import com.example.finalucp_113.ui.viewmodel.instruktur.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.InstrukturPenyediaViewModel
 import kotlinx.coroutines.launch
 
 object DestinasiInsertInstruktur : DestinasiNavigasi {
@@ -60,7 +60,7 @@ fun InsertInstrukturView(
     onBack: () -> Unit,
     onNavigate: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: InsertInstrukturViewmodel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: InsertInstrukturViewmodel = viewModel(factory = InstrukturPenyediaViewModel.Factory)
 ) {
     val uiState = viewModel.uiState
     val snackbarHostState = remember { SnackbarHostState() }

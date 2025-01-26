@@ -1,28 +1,27 @@
-package com.example.finalucp_113.ui.viewmodel.instruktur
+package com.example.finalucp_113.ui.viewmodel.pendaftaran
 
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.finalucp_113.LembagaKursusAplications
 
-object PenyediaViewModel {
+object PendaftaranPenyediaViewModel {
     val Factory = viewModelFactory {
-        initializer { HomeInstrukturViewModel(lembagakursusApp().container.instrukturRepository) }
-        initializer { InsertInstrukturViewmodel(lembagakursusApp().container.instrukturRepository) }
-        initializer {
-            DetailInstrukturViewModel(
+        initializer { HomePendaftaranViewModel(lembagakursusApp().container.pendaftaranRepository) }
+        initializer { InsertPendaftaranViewModel(lembagakursusApp().container.pendaftaranRepository) }
+        /*initializer {
+            DetailsiswaViewModel(
                 savedStateHandle = this.createSavedStateHandle(),
-                instrukturRepository = lembagakursusApp().container.instrukturRepository
+                siswaRepository = lembagakursusApp().container.siswaRepository
             )
         }
         initializer {
-            UpdateInstrukturViewModel(
+            UpdateSiswaViewModel(
                 savedStateHandle = this.createSavedStateHandle(),
-                instrukturRepository = lembagakursusApp().container.instrukturRepository
+                siswaRepository = lembagakursusApp().container.siswaRepository
             )
-        }
+        }*/
     }
 }
 

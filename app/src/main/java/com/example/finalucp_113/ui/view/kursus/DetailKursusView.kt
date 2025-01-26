@@ -37,7 +37,7 @@ import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.viewmodel.kursus.DetailkursusUiState
 import com.example.finalucp_113.ui.viewmodel.kursus.DetailkursusViewModel
-import com.example.finalucp_113.ui.viewmodel.kursus.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.kursus.KursusPenyediaViewModel
 
 object DestinasiDetailKursus : DestinasiNavigasi {
     override val route = "id_detail"
@@ -52,7 +52,7 @@ fun DetailkursusView(
     modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
     onEditClick: (String) -> Unit,
-    detailViewModel: DetailkursusViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    detailViewModel: DetailkursusViewModel = viewModel(factory = KursusPenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 

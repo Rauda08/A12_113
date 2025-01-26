@@ -48,7 +48,7 @@ import com.example.finalucp_113.ui.viewmodel.kursus.FormErrorState
 import com.example.finalucp_113.ui.viewmodel.kursus.InsertKursusEvent
 import com.example.finalucp_113.ui.viewmodel.kursus.InsertKursusUIState
 import com.example.finalucp_113.ui.viewmodel.kursus.InsertKursusViewModel
-import com.example.finalucp_113.ui.viewmodel.kursus.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.kursus.KursusPenyediaViewModel
 import kotlinx.coroutines.launch
 
 object DestinasiInsertKursus : DestinasiNavigasi {
@@ -62,7 +62,7 @@ fun InsertKursusView(
     onBack: () -> Unit,
     onNavigate: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: InsertKursusViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: InsertKursusViewModel = viewModel(factory = KursusPenyediaViewModel.Factory)
 ) {
     val uiState = viewModel.uiState
     val snackbarHostState = remember { SnackbarHostState() }

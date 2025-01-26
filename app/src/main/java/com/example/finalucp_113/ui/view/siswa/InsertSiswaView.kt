@@ -42,11 +42,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.theme.PinkLight
 import com.example.finalucp_113.ui.theme.PinkMedium
-import com.example.finalucp_113.ui.viewmodel.siswa.PenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.FormErrorState
 import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaEvent
 import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaUIState
 import com.example.finalucp_113.ui.viewmodel.siswa.InsertSiswaViewModel
+import com.example.finalucp_113.ui.viewmodel.siswa.SiswaPenyediaViewModel
 import kotlinx.coroutines.launch
 
 object DestinasiInsertSiswa : DestinasiNavigasi {
@@ -60,7 +60,7 @@ fun InsertSiswaView(
     onBack: () -> Unit,
     onNavigate: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: InsertSiswaViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: InsertSiswaViewModel = viewModel(factory = SiswaPenyediaViewModel.Factory)
 ) {
     val uiState = viewModel.uiState
     val snackbarHostState = remember { SnackbarHostState() }

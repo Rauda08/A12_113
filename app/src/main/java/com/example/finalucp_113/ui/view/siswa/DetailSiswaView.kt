@@ -35,9 +35,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
-import com.example.finalucp_113.ui.viewmodel.siswa.PenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaUiState
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaViewModel
+import com.example.finalucp_113.ui.viewmodel.siswa.SiswaPenyediaViewModel
 
 object DestinasiDetailSiswa : DestinasiNavigasi {
     override val route = "id_detail"
@@ -52,7 +52,7 @@ fun DetailSiswaView(
     modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
     onEditClick: (String) -> Unit,
-    detailViewModel: DetailsiswaViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    detailViewModel: DetailsiswaViewModel = viewModel(factory = SiswaPenyediaViewModel.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 

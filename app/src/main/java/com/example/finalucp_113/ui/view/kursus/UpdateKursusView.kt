@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
-import com.example.finalucp_113.ui.viewmodel.kursus.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.kursus.KursusPenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.kursus.UpdateKursusViewModel
 import kotlinx.coroutines.launch
 
@@ -28,7 +28,7 @@ fun UpdateKursusView(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: UpdateKursusViewModel = viewModel(factory = PenyediaViewModel.Factory)
+    viewModel: UpdateKursusViewModel = viewModel(factory = KursusPenyediaViewModel.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
 
