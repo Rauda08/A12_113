@@ -28,7 +28,8 @@ object DestinasiHome : DestinasiNavigasi {
 fun HomeMenuView(
     onSiswaClick: () -> Unit,
     onInstrukturClick : () -> Unit,
-    onKursusClick : () -> Unit
+    onKursusClick : () -> Unit,
+    onPendaftaranClick : () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -93,6 +94,21 @@ fun HomeMenuView(
         ) {
             Text(
                 text = "Menu Kursus",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+
+        Button(
+            onClick = onPendaftaranClick,
+            modifier = Modifier
+                .padding(50.dp)
+                .fillMaxWidth(0.8f),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD05E99))
+        ) {
+            Text(
+                text = "Menu Pendaftaran",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White

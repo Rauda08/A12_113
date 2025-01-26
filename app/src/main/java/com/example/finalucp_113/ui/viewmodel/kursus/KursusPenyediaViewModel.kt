@@ -7,7 +7,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.finalucp_113.LembagaKursusAplications
 
-object KursusPenyediaViewModel{
+object KursusPenyediaViewModel {
     val Factory = viewModelFactory {
         initializer {
             HomeKursusViewModel(
