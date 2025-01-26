@@ -20,6 +20,14 @@ import com.example.finalucp_113.ui.view.instruktur.DetailInstrukturView
 import com.example.finalucp_113.ui.view.instruktur.HomeInstrukturView
 import com.example.finalucp_113.ui.view.instruktur.InsertInstrukturView
 import com.example.finalucp_113.ui.view.instruktur.UpdateInstrukturView
+import com.example.finalucp_113.ui.view.kursus.DestinasiDetailKursus
+import com.example.finalucp_113.ui.view.kursus.DestinasiHomeKursus
+import com.example.finalucp_113.ui.view.kursus.DestinasiInsertKursus
+import com.example.finalucp_113.ui.view.kursus.DestinasiUpdateKursus
+import com.example.finalucp_113.ui.view.kursus.DetailkursusView
+import com.example.finalucp_113.ui.view.kursus.HomeKursusView
+import com.example.finalucp_113.ui.view.kursus.InsertKursusView
+import com.example.finalucp_113.ui.view.kursus.UpdateKursusView
 import com.example.finalucp_113.ui.view.siswa.DestinasiDetailSiswa
 import com.example.finalucp_113.ui.view.siswa.DestinasiHomeSiswa
 import com.example.finalucp_113.ui.view.siswa.DestinasiInsertSiswa
@@ -42,7 +50,8 @@ fun PengelolaHalaman(
         ) {
             HomeMenuView(
                 onSiswaClick = { navController.navigate(DestinasiHomeSiswa.route) },
-                onInstrukturClick = { navController.navigate(DestinasiHomeInstruktur.route)}
+                onInstrukturClick = { navController.navigate(DestinasiHomeInstruktur.route)},
+                onKursusClick = { navController.navigate(DestinasiHomeKursus.route)}
             )
         }
         composable(
@@ -119,7 +128,7 @@ fun PengelolaHalaman(
             )
         }
 
-        ///////////////////////////////////////////////////////////
+        //Instruktur
 
         composable(
             route = DestinasiHomeInstruktur.route
@@ -186,6 +195,82 @@ fun PengelolaHalaman(
                 onNavigateUp = {
                     navController.navigate(
                         DestinasiUpdateInstruktur.route
+                    ){
+                        popUpTo(DestinasiHome.route){
+                            inclusive = true
+                        }
+                    }
+                },
+            )
+        }
+
+        // Kursus
+
+        composable(
+            route = DestinasiHomeKursus.route
+        ) {
+            HomeKursusView(
+                onAddKursus = {
+                    navController.navigate(DestinasiInsertKursus.route)
+                },
+                onDetailClick = { id_kursus ->
+                    navController.navigate("${DestinasiDetailKursus.route}/$id_kursus")
+                },
+                modifier = modifier
+            )
+        }
+
+        composable(
+            route = DestinasiInsertKursus.route
+        ) {
+            InsertKursusView(
+                onBack = {
+                    navController.popBackStack()
+                },
+                onNavigate = {
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+            )
+        }
+
+        composable(
+            route = DestinasiDetailKursus.routeWithArgs,
+            arguments = listOf(
+                navArgument(DestinasiDetailKursus.id_kursus) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val id_kursus = it.arguments?.getString(DestinasiDetailKursus.id_kursus)
+
+            id_kursus?.let { id_kursus ->
+                DetailkursusView(
+                    navigateBack = {
+                        navController.popBackStack()
+                    },
+                    onEditClick = { id_kursus ->
+                        navController.navigate("${DestinasiUpdateKursus.route}/$id_kursus")
+                    }
+                )
+            }
+        }
+
+        composable(
+            DestinasiUpdateKursus.routeWithArgs,
+            arguments = listOf(
+                navArgument (DestinasiUpdateKursus.id_kursus) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            UpdateKursusView(
+                navigateBack = {
+                    navController.popBackStack()
+                },
+                onNavigateUp = {
+                    navController.navigate(
+                        DestinasiUpdateKursus.route
                     ){
                         popUpTo(DestinasiHome.route){
                             inclusive = true

@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
-import com.example.finalucp_113.ui.viewmodel.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.PenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.instruktur.UpdateInstrukturViewModel
 import kotlinx.coroutines.launch
 

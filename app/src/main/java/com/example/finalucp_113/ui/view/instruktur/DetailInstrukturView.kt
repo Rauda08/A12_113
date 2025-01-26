@@ -35,9 +35,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.model.Instruktur
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
-import com.example.finalucp_113.ui.viewmodel.PenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.instruktur.DetailInstrukturUiState
 import com.example.finalucp_113.ui.viewmodel.instruktur.DetailInstrukturViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.PenyediaViewModel
 
 object DestinasiDetailInstruktur : DestinasiNavigasi {
     override val route = "id_detail"

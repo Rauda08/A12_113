@@ -10,7 +10,6 @@ data class Siswa(
     val no_telepon: String
 )
 
-
 @Serializable
 data class Instruktur (
     val id_instruktur: String,
@@ -29,12 +28,6 @@ data class Kursus(
     val harga: String,
     val id_instruktur: String
 )
-
-@Serializable
-enum class Kategori {
-    Saintek,
-    Soshum
-}
 
 @Serializable
 data class Pendaftaran (

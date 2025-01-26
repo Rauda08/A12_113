@@ -10,7 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.view.siswa.InsertBodySiswa
-import com.example.finalucp_113.ui.viewmodel.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.siswa.PenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.UpdateSiswaViewModel
 import kotlinx.coroutines.launch
 

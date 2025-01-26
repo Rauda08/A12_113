@@ -35,7 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
-import com.example.finalucp_113.ui.viewmodel.PenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.siswa.PenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaUiState
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaViewModel
 

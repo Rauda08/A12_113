@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalucp_113.model.Kursus
 import com.example.finalucp_113.repository.KursusRepository
+import com.example.finalucp_113.ui.view.kursus.DestinasiDetailKursus
 import kotlinx.coroutines.launch
 import java.io.IOException
 

@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
@@ -28,7 +27,8 @@ object DestinasiHome : DestinasiNavigasi {
 @Composable
 fun HomeMenuView(
     onSiswaClick: () -> Unit,
-    onInstrukturClick : () -> Unit
+    onInstrukturClick : () -> Unit,
+    onKursusClick : () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -84,5 +84,20 @@ fun HomeMenuView(
                 color = Color.White
             )
         }
-    }
+        Button(
+            onClick = onKursusClick,
+            modifier = Modifier
+                .padding(50.dp)
+                .fillMaxWidth(0.8f),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD05E99))
+        ) {
+            Text(
+                text = "Menu Kursus",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+
+        }
 }
