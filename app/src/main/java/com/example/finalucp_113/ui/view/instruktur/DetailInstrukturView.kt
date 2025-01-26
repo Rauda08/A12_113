@@ -40,7 +40,7 @@ import com.example.finalucp_113.ui.viewmodel.instruktur.DetailInstrukturViewMode
 import com.example.finalucp_113.ui.viewmodel.instruktur.InstrukturPenyediaViewModel
 
 object DestinasiDetailInstruktur : DestinasiNavigasi {
-    override val route = "id_detail"
+    override val route = "detail_instruktur"
     override val titleRes = "Detail Instruktur"
     const val id_instruktur = "id_instruktur"
     val routeWithArgs = "$route/{$id_instruktur}"

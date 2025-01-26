@@ -40,7 +40,7 @@ import com.example.finalucp_113.ui.viewmodel.pendaftaran.DetailpendaftaranViewMo
 import com.example.finalucp_113.ui.viewmodel.pendaftaran.PendaftaranPenyediaViewModel
 
 object DestinasiDetailPendaftaran : DestinasiNavigasi {
-    override val route = "id_detail"
+    override val route = "detail_pendaftaran"
     override val titleRes = "Detail Pendaftaran"
     const val id_pendaftaran = "id_pendaftaran"
     val routeWithArgs = "$route/{$id_pendaftaran}"

@@ -16,7 +16,7 @@ import com.example.finalucp_113.ui.viewmodel.kursus.UpdateKursusViewModel
 import kotlinx.coroutines.launch
 
 object DestinasiUpdateKursus : DestinasiNavigasi {
-    override val route = "id_kursus"
+    override val route = "update_kursus"
     override val titleRes = "Update Kursus"
     const val id_kursus = "id_kursus"
     val routeWithArgs = "$route/{$id_kursus}"

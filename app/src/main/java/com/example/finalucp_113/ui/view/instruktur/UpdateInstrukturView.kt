@@ -16,7 +16,7 @@ import com.example.finalucp_113.ui.viewmodel.instruktur.UpdateInstrukturViewMode
 import kotlinx.coroutines.launch
 
 object DestinasiUpdateInstruktur : DestinasiNavigasi {
-    override val route = "id_instruktur"
+    override val route = "update_instruktur"
     override val titleRes = "Update Instruktur"
     const val id_instruktur = "id_instruktur"
     val routeWithArgs = "$route/{$id_instruktur}"

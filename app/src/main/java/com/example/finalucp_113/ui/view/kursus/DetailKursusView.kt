@@ -40,7 +40,7 @@ import com.example.finalucp_113.ui.viewmodel.kursus.DetailkursusViewModel
 import com.example.finalucp_113.ui.viewmodel.kursus.KursusPenyediaViewModel
 
 object DestinasiDetailKursus : DestinasiNavigasi {
-    override val route = "id_detail"
+    override val route = "detail_kursus"
     override val titleRes = "Detail Kursus"
     const val id_kursus = "id_kursus"
     val routeWithArgs = "$route/{$id_kursus}"

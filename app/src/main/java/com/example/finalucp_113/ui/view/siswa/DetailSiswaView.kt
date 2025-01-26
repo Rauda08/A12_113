@@ -35,12 +35,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
+import com.example.finalucp_113.ui.theme.PinkLight
+import com.example.finalucp_113.ui.theme.PinkMedium
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaUiState
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.SiswaPenyediaViewModel
 
 object DestinasiDetailSiswa : DestinasiNavigasi {
-    override val route = "id_detail"
+    override val route = "detail_siswa"
     override val titleRes = "Detail Siswa"
     const val id_siswa = "id_siswa"
     val routeWithArgs = "$route/{$id_siswa}"
@@ -138,31 +140,57 @@ fun DetailCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .padding(16.dp)
+            .offset(y = 50.dp), // Menggeser card ke bawah
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.large, // Membuat sudut lebih bulat
+        colors = CardDefaults.cardColors(
+            containerColor = PinkLight, // Latar belakang Card dengan PinkMedium
+        )
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier
+                .padding(24.dp) // Padding lebih besar untuk ruang yang nyaman
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(12.dp) // Jarak antar-elemen lebih lebar
         ) {
-            ComponentDetailSiswa(judul = "Id Siswa", isinya = siswa.id_siswa)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailSiswa(judul = "Nama Siswa", isinya = siswa.nama_siswa)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailSiswa(judul = "Email", isinya = siswa.email)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailSiswa(judul = "No Telepon", isinya = siswa.no_telepon)
-            Spacer(modifier = Modifier.height(8.dp))
+            ComponentDetailSiswa(
+                judul = "Id Siswa",
+                isinya = siswa.id_siswa,
+                warnaJudul = PinkMedium, // Menggunakan PinkLight untuk judul
+                warnaIsi = PinkMedium // Menggunakan PinkLight untuk isi
+            )
+            ComponentDetailSiswa(
+                judul = "Nama Siswa",
+                isinya = siswa.nama_siswa,
+                warnaJudul = PinkMedium,
+                warnaIsi = PinkMedium
+            )
+            ComponentDetailSiswa(
+                judul = "Email",
+                isinya = siswa.email,
+                warnaJudul = PinkMedium,
+                warnaIsi = PinkMedium
+            )
+            ComponentDetailSiswa(
+                judul = "No Telepon",
+                isinya = siswa.no_telepon,
+                warnaJudul = PinkMedium,
+                warnaIsi = PinkMedium
+            )
         }
     }
 }
+
 
 @Composable
 fun ComponentDetailSiswa(
     modifier: Modifier = Modifier,
     judul: String,
     isinya: String,
+    warnaJudul: Color = PinkMedium, // Default warna judul
+    warnaIsi: Color = PinkMedium// Default warna isi
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -170,15 +198,15 @@ fun ComponentDetailSiswa(
     ) {
         Text(
             text = "$judul:",
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.Gray
+            color = warnaJudul // Warna judul menggunakan PinkLight
         )
         Text(
             text = isinya,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            color = warnaIsi // Warna isi menggunakan PinkLight
         )
     }
 }
-
