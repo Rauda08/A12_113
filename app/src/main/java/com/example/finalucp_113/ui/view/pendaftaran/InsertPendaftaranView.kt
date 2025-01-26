@@ -149,7 +149,7 @@ fun InsertBodyPendaftaran(
             .fillMaxWidth()
             .padding(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = PinkLight) // Light pink background
+        colors = CardDefaults.cardColors(containerColor = PinkLight)
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -224,7 +224,8 @@ fun FormPendaftaran(
                     Text(text = errorState.id_pendaftaran, color = Color.Red, fontSize = 12.sp)
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp)
+                )
 
                 DynamicSelectedTextField(
                     selectedValue = insertPendaftaranEvent.id_siswa.toString(),
@@ -261,6 +262,22 @@ fun FormPendaftaran(
                         onValueChange(insertPendaftaranEvent.copy(id_kursus = selectedId))
                     }
                 )
+
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = insertPendaftaranEvent.tanggal_pendaftaran,
+                    onValueChange = { onValueChange(insertPendaftaranEvent.copy(tanggal_pendaftaran = it)) },
+                    label = { Text("Tanggal Pendaftaran") },
+                    isError = errorState.tanggal_pendaftaran != null,
+                    placeholder = { Text("Masukkan Tanggal Pendaftaran") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+
+                if (errorState.tanggal_pendaftaran != null) {
+                    Text(text = errorState.tanggal_pendaftaran, color = Color.Red, fontSize = 12.sp)
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
