@@ -30,9 +30,9 @@ data class Kursus(
 )
 
 @Serializable
-data class Pendaftaran (
+data class Pendaftaran(
     val id_pendaftaran: String,
-    val id_siswa: Siswa,
-    val id_kursus: Kursus,
-    val tanggal_pendaftaran : String
+    val id_siswa: String,
+    val id_kursus: String,
+    val tanggal_pendaftaran: String
 )

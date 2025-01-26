@@ -10,6 +10,7 @@ interface PendaftaranRepository {
     suspend fun updatePendaftaran(idPendaftaran : String, pendaftaran: Pendaftaran)
     suspend fun deletePendaftaran(idPendaftaran: String)
     suspend fun getPendaftaranByidPendaftaran(idPendaftaran: String): Pendaftaran
+
 }
 
 class NetworkPendaftaranRepository(
