@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalucp_113.model.Pendaftaran
 import com.example.finalucp_113.repository.PendaftaranRepository
+import com.example.finalucp_113.ui.view.pendaftaran.DestinasiDetailPendaftaran
 import kotlinx.coroutines.launch
 import java.io.IOException
 

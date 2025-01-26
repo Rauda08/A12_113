@@ -1,6 +1,7 @@
 package com.example.finalucp_113.ui.viewmodel.pendaftaran
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -10,18 +11,18 @@ object PendaftaranPenyediaViewModel {
     val Factory = viewModelFactory {
         initializer { HomePendaftaranViewModel(lembagakursusApp().container.pendaftaranRepository) }
         initializer { InsertPendaftaranViewModel(lembagakursusApp().container.pendaftaranRepository) }
-        /*initializer {
-            DetailsiswaViewModel(
+        initializer {
+            DetailpendaftaranViewModel(
                 savedStateHandle = this.createSavedStateHandle(),
-                siswaRepository = lembagakursusApp().container.siswaRepository
+                pendaftaranRepository = lembagakursusApp().container.pendaftaranRepository
             )
         }
         initializer {
-            UpdateSiswaViewModel(
+            UpdatePendaftaranViewModel(
                 savedStateHandle = this.createSavedStateHandle(),
-                siswaRepository = lembagakursusApp().container.siswaRepository
+                pendaftaranRepository = lembagakursusApp().container.pendaftaranRepository
             )
-        }*/
+        }
     }
 }
 

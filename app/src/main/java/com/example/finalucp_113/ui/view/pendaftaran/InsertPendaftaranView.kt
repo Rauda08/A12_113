@@ -128,8 +128,6 @@ fun InsertPendaftaranView(
                     viewModel.saveData()
                     onNavigate()
                 },
-                siswaUiState = siswaUiState,
-                kursusUiState = kursusUiState
             )
         }
     }
@@ -141,8 +139,6 @@ fun InsertBodyPendaftaran(
     onValueChange: (InsertPendaftaranEvent) -> Unit,
     insertPendaftaranUIState: InsertPendaftaranUIState,
     onClick: () -> Unit,
-    siswaUiState: SiswaUiState,
-    kursusUiState: KursusUiState
 ) {
     Card(
         modifier = modifier
@@ -168,11 +164,9 @@ fun InsertBodyPendaftaran(
                 insertPendaftaranEvent = insertPendaftaranUIState.pendaftaranEvent,
                 onValueChange = onValueChange,
                 errorState = insertPendaftaranUIState.isEntryValid,
-                siswaUiState = siswaUiState,
-                kursusUiState = kursusUiState,
-                modifier = Modifier.fillMaxWidth()
+                viewModelSiswa = viewModel(),
+                viewModelKursus = viewModel()
             )
-
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
@@ -191,10 +185,14 @@ fun FormPendaftaran(
     insertPendaftaranEvent: InsertPendaftaranEvent,
     onValueChange: (InsertPendaftaranEvent) -> Unit,
     errorState: FormErrorState,
-    siswaUiState: SiswaUiState,
-    kursusUiState: KursusUiState,
+    viewModelSiswa: HomeSiswaViewModel,
+    viewModelKursus: HomeKursusViewModel,
     modifier: Modifier = Modifier
 ) {
+
+    val siswaUiState = viewModelSiswa.siswaUIState
+    val kursusUiState = viewModelKursus.kursusUIState
+
     when (siswaUiState) {
         is SiswaUiState.Loading -> {
             CircularProgressIndicator(modifier = Modifier.padding(16.dp))

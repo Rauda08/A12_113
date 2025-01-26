@@ -28,6 +28,14 @@ import com.example.finalucp_113.ui.view.kursus.DetailkursusView
 import com.example.finalucp_113.ui.view.kursus.HomeKursusView
 import com.example.finalucp_113.ui.view.kursus.InsertKursusView
 import com.example.finalucp_113.ui.view.kursus.UpdateKursusView
+import com.example.finalucp_113.ui.view.pendaftaran.DestinasiDetailPendaftaran
+import com.example.finalucp_113.ui.view.pendaftaran.DestinasiHomePendaftaran
+import com.example.finalucp_113.ui.view.pendaftaran.DestinasiInsertPendaftaran
+import com.example.finalucp_113.ui.view.pendaftaran.DestinasiUpdatePendaftaran
+import com.example.finalucp_113.ui.view.pendaftaran.DetailPendaftaranView
+import com.example.finalucp_113.ui.view.pendaftaran.HomePendaftaranView
+import com.example.finalucp_113.ui.view.pendaftaran.InsertPendaftaranView
+import com.example.finalucp_113.ui.view.pendaftaran.UpdatePendaftaranView
 import com.example.finalucp_113.ui.view.siswa.DestinasiDetailSiswa
 import com.example.finalucp_113.ui.view.siswa.DestinasiHomeSiswa
 import com.example.finalucp_113.ui.view.siswa.DestinasiInsertSiswa
@@ -51,7 +59,8 @@ fun PengelolaHalaman(
             HomeMenuView(
                 onSiswaClick = { navController.navigate(DestinasiHomeSiswa.route) },
                 onInstrukturClick = { navController.navigate(DestinasiHomeInstruktur.route)},
-                onKursusClick = { navController.navigate(DestinasiHomeKursus.route)}
+                onKursusClick = { navController.navigate(DestinasiHomeKursus.route)},
+                onPendaftaranClick = { navController.navigate(DestinasiHomePendaftaran.route)}
             )
         }
         composable(
@@ -271,6 +280,81 @@ fun PengelolaHalaman(
                 onNavigateUp = {
                     navController.navigate(
                         DestinasiUpdateKursus.route
+                    ){
+                        popUpTo(DestinasiHome.route){
+                            inclusive = true
+                        }
+                    }
+                },
+            )
+        }
+
+        ///////Pendaftaran/////////////
+
+        composable(
+            route = DestinasiHomePendaftaran.route
+        ) {
+            HomePendaftaranView(
+                onAddPendaftaran = {
+                    navController.navigate(DestinasiInsertPendaftaran.route)
+                },
+                onDetailClick = { id_pendaftaran ->
+                    navController.navigate("${DestinasiDetailPendaftaran.route}/$id_pendaftaran")
+                },
+                modifier = modifier
+            )
+        }
+
+        composable(
+            route = DestinasiInsertPendaftaran.route
+        ) {
+            InsertPendaftaranView(
+                onBack = {
+                    navController.popBackStack()
+                },
+                onNavigate = {
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+            )
+        }
+
+        composable(
+            route = DestinasiDetailPendaftaran.routeWithArgs,
+            arguments = listOf(
+                navArgument(DestinasiDetailPendaftaran.id_pendaftaran) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val id_pendaftaran = it.arguments?.getString(DestinasiDetailPendaftaran.id_pendaftaran)
+
+            id_pendaftaran?.let { id_pendaftaran ->
+                DetailPendaftaranView(
+                    navigateBack = {
+                        navController.popBackStack()
+                    },
+                    onEditClick = { id_pendaftaran ->
+                        navController.navigate("${DestinasiUpdatePendaftaran.route}/$id_pendaftaran")
+                    }
+                )
+            }
+        }
+        composable(
+            DestinasiUpdateKursus.routeWithArgs,
+            arguments = listOf(
+                navArgument (DestinasiUpdateKursus.id_kursus) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            UpdatePendaftaranView(
+                navigateBack = {
+                    navController.popBackStack()
+                },
+                onNavigateUp = {
+                    navController.navigate(
+                        DestinasiUpdatePendaftaran.route
                     ){
                         popUpTo(DestinasiHome.route){
                             inclusive = true

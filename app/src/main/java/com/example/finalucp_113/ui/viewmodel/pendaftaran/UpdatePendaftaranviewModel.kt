@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalucp_113.repository.PendaftaranRepository
+import com.example.finalucp_113.ui.view.pendaftaran.DestinasiUpdatePendaftaran
 import kotlinx.coroutines.launch
 
 class UpdatePendaftaranViewModel(
