@@ -1,5 +1,7 @@
 package com.example.finalucp_113.ui.view.siswa
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
@@ -26,12 +29,14 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalucp_113.R
 import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
@@ -47,6 +52,23 @@ object DestinasiDetailSiswa : DestinasiNavigasi {
     const val id_siswa = "id_siswa"
     val routeWithArgs = "$route/{$id_siswa}"
 }
+
+@Preview(showBackground = true)
+@Composable
+fun DetailCardPreview() {
+    val dummySiswa = Siswa(
+        id_siswa = "123",
+        nama_siswa = "John Doe",
+        email = "johndoe@example.com",
+        no_telepon = "081234567890"
+    )
+
+    DetailCard(
+        siswa = dummySiswa,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -141,72 +163,60 @@ fun DetailCard(
 ) {
     Card(
         modifier = modifier
-            .padding(16.dp)
-            .offset(y = 50.dp), // Menggeser card ke bawah
+            .fillMaxWidth()
+            .padding(top = 100.dp)
+            .then(Modifier.border(width = 7.dp, color = PinkMedium)),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = MaterialTheme.shapes.large, // Membuat sudut lebih bulat
-        colors = CardDefaults.cardColors(
-            containerColor = PinkLight, // Latar belakang Card dengan PinkMedium
-        )
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(containerColor = PinkLight)
     ) {
         Column(
             modifier = Modifier
-                .padding(24.dp) // Padding lebih besar untuk ruang yang nyaman
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(12.dp) // Jarak antar-elemen lebih lebar
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            ComponentDetailSiswa(
-                judul = "Id Siswa",
-                isinya = siswa.id_siswa,
-                warnaJudul = PinkMedium, // Menggunakan PinkLight untuk judul
-                warnaIsi = PinkMedium // Menggunakan PinkLight untuk isi
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+                    text = "Id Siswa: ${siswa.id_siswa}",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = PinkMedium
+                )
+            }
+
+
+            Image(
+                painter = painterResource(id = R.drawable.orangg),
+                contentDescription = "Gambar orang",
+                modifier = Modifier
+                    .size(250.dp)
             )
-            ComponentDetailSiswa(
-                judul = "Nama Siswa",
-                isinya = siswa.nama_siswa,
-                warnaJudul = PinkMedium,
-                warnaIsi = PinkMedium
+
+            Text(
+                text = siswa.nama_siswa,
+                fontSize = 27.sp,
+                fontWeight = FontWeight.Bold,
+                color = PinkMedium
             )
-            ComponentDetailSiswa(
-                judul = "Email",
-                isinya = siswa.email,
-                warnaJudul = PinkMedium,
-                warnaIsi = PinkMedium
+
+            Text(
+                text = "Email: ${siswa.email}",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+                color = PinkMedium
+                )
+            Text(
+                text = "No Telepon: ${siswa.no_telepon}",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+                color = PinkMedium
             )
-            ComponentDetailSiswa(
-                judul = "No Telepon",
-                isinya = siswa.no_telepon,
-                warnaJudul = PinkMedium,
-                warnaIsi = PinkMedium
-            )
+            }
         }
     }
-}
-
-
-@Composable
-fun ComponentDetailSiswa(
-    modifier: Modifier = Modifier,
-    judul: String,
-    isinya: String,
-    warnaJudul: Color = PinkMedium, // Default warna judul
-    warnaIsi: Color = PinkMedium// Default warna isi
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = "$judul:",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = warnaJudul // Warna judul menggunakan PinkLight
-        )
-        Text(
-            text = isinya,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Medium,
-            color = warnaIsi // Warna isi menggunakan PinkLight
-        )
-    }
-}
