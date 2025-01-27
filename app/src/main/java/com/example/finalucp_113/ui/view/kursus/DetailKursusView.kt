@@ -1,5 +1,6 @@
 package com.example.finalucp_113.ui.view.kursus
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,12 +11,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -27,6 +37,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -81,19 +92,27 @@ fun DetailkursusView(
             }
         }
     ) { innerPadding ->
+
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(innerPadding).offset(y = (-70).dp)
+                .fillMaxSize()
+                .background(Color(0xFF46051C))
+                .padding(innerPadding)
         ) {
-            DetailStatus(
-                kursusUiState = detailViewModel.detailkursusUiState,
-                retryAction = { detailViewModel.getkursusbyId() },
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.Center)
-                    .padding(16.dp)
-            )
+                    .offset(y = (-70).dp)
+            ) {
+                DetailStatus(
+                    kursusUiState = detailViewModel.detailkursusUiState,
+                    retryAction = { detailViewModel.getkursusbyId() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Center)
+                        .padding(16.dp)
+                )
+            }
         }
     }
 }
@@ -108,7 +127,7 @@ fun DetailStatus(
         is DetailkursusUiState.Success -> {
             DetailCard(
                 kursus = kursusUiState.kursus,
-                modifier = modifier.padding(16.dp)
+                modifier = modifier.padding(16.dp).offset(y = 50.dp)
             )
         }
 
@@ -138,26 +157,36 @@ fun DetailCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = MaterialTheme.shapes.medium
+        modifier = modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 0.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFDD5E3))
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            ComponentDetailKursus(judul = "Id Kursus", isinya = kursus.id_kursus)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailKursus(judul = "Nama kursus", isinya = kursus.nama_kursus)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailKursus(judul = "Deskripsi", isinya = kursus.deskripsi)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailKursus(judul = "Kategori", isinya = kursus.kategori)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailKursus(judul = "Harga", isinya = kursus.harga)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailKursus(judul = "Id Instruktur", isinya = kursus.id_instruktur)
-            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Berikut adalah Rincian Kursus :",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF46051C),
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Divider(color = Color(0xFF46051C), thickness = 3.dp)
+
+            // List detail
+            ComponentDetailKursus(judul = "ID Kursus", isinya = kursus.id_kursus, icon = Icons.Default.Info)
+            ComponentDetailKursus(judul = "Nama Kursus", isinya = kursus.nama_kursus, icon = Icons.Default.Place)
+            ComponentDetailKursus(judul = "Kategori", isinya = kursus.kategori, icon = Icons.Default.Star)
+            ComponentDetailKursus(judul = "Harga", isinya = kursus.harga, icon = Icons.Default.ShoppingCart)
+            ComponentDetailKursus(judul = "ID Instruktur", isinya = kursus.id_instruktur, icon = Icons.Default.Person)
+            ComponentDetailKursus(judul = "Deskripsi", isinya = kursus.deskripsi, icon = Icons.Default.Edit)
         }
     }
 }
@@ -167,22 +196,34 @@ fun ComponentDetailKursus(
     modifier: Modifier = Modifier,
     judul: String,
     isinya: String,
+    icon: ImageVector // Ikon tambahan
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
-            text = "$judul:",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Gray
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = Color(0xFF46051C),
+                modifier = Modifier.size(24.dp).padding(end = 8.dp)
+            )
+            Text(
+                text = judul,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color(0xFF46051C)
+            )
+        }
         Text(
             text = isinya,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
+            fontSize = 14.sp,
+            color = Color(0xFF46051C),
+            modifier = Modifier.widthIn(max = 180.dp)
         )
     }
 }
-

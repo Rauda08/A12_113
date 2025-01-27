@@ -1,5 +1,6 @@
 package com.example.finalucp_113.ui.view.pendaftaran
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,12 +11,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -27,8 +37,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -53,7 +65,7 @@ fun DetailPendaftaranView(
     navigateBack: () -> Unit,
     onEditClick: (String) -> Unit,
     detailViewModel: DetailpendaftaranViewModel = viewModel(factory = PendaftaranPenyediaViewModel.Factory)
-){
+) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
@@ -69,31 +81,44 @@ fun DetailPendaftaranView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    val id_pendaftaran = (detailViewModel.detailpendaftaranUiState as? DetailpendaftaranUiState.Success)?.pendaftaran?.id_pendaftaran
+                    val id_pendaftaran =
+                        (detailViewModel.detailpendaftaranUiState as? DetailpendaftaranUiState.Success)?.pendaftaran?.id_pendaftaran
                     if (id_pendaftaran != null) onEditClick(id_pendaftaran)
                 },
-                shape = MaterialTheme.shapes.medium
+                shape = MaterialTheme.shapes.medium,
+                containerColor = Color(0xFFFFE6F0),
+                contentColor = Color(0xFF46051C),
+                modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Edit Pendaftaran",
+
                 )
             }
         }
     ) { innerPadding ->
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(innerPadding).offset(y = (-70).dp)
+                .fillMaxSize()
+                .background(Color(0xFF46051C))
+                .padding(innerPadding)
         ) {
-            DetailStatus(
-                pendaftaranUiState = detailViewModel.detailpendaftaranUiState,
-                retryAction = { detailViewModel.getpendaftaranbyId() },
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.Center)
-                    .padding(16.dp)
-            )
+                    .offset(y = (0).dp)
+            ) {
+
+                DetailStatus(
+                    pendaftaranUiState = detailViewModel.detailpendaftaranUiState,
+                    retryAction = { detailViewModel.getpendaftaranbyId() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Center)
+                        .padding(16.dp)
+                )
+            }
         }
     }
 }
@@ -138,22 +163,50 @@ fun DetailCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = MaterialTheme.shapes.medium
+        modifier = modifier
+            .padding(10.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 0.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFDD5E3))
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            ComponentDetailPendaftaran(judul = "Id Pendaftaran", isinya = pendaftaran.id_pendaftaran)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailPendaftaran(judul = "Id Siswa", isinya = pendaftaran.id_siswa)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailPendaftaran(judul = "Id Kursus", isinya = pendaftaran.id_kursus)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailPendaftaran(judul = "Tanggal Pendaftaran", isinya = pendaftaran.tanggal_pendaftaran)
-            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Berikut adalah Rincian Pendaftaran :",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF46051C),
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Divider(color = Color(0xFF46051C), thickness = 3.dp)
+
+            // List detail
+            ComponentDetailPendaftaran(
+                judul = "ID Pendaftaran",
+                isinya = pendaftaran.id_pendaftaran,
+                icon = Icons.Default.Info
+            )
+            ComponentDetailPendaftaran(
+                judul = "ID Siswa",
+                isinya = pendaftaran.id_siswa,
+                icon = Icons.Default.Person
+            )
+            ComponentDetailPendaftaran(
+                judul = "ID Kursus",
+                isinya = pendaftaran.id_kursus,
+                icon = Icons.Default.Place
+            )
+            ComponentDetailPendaftaran(
+                judul = "Tanggal Pendaftaran",
+                isinya = pendaftaran.tanggal_pendaftaran,
+                icon = Icons.Default.DateRange
+            )
         }
     }
 }
@@ -163,22 +216,49 @@ fun ComponentDetailPendaftaran(
     modifier: Modifier = Modifier,
     judul: String,
     isinya: String,
+    icon: ImageVector
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
-            text = "$judul:",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Gray
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = Color(0xFF46051C),
+                modifier = Modifier
+                    .size(24.dp)
+                    .padding(end = 8.dp)
+            )
+            Text(
+                text = judul,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color(0xFF46051C)
+            )
+        }
         Text(
             text = isinya,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp,
+            color = Color(0xFF46051C),
+            modifier = Modifier.widthIn(max = 180.dp)
         )
     }
 }
 
+@Composable
+@Preview(showBackground = true)
+fun PreviewDetailCard() {
+    DetailCard(
+        pendaftaran = Pendaftaran(
+            id_pendaftaran = "12345",
+            id_siswa = "S001",
+            id_kursus = "K001",
+            tanggal_pendaftaran = "2025-01-01"
+        )
+    )
+}

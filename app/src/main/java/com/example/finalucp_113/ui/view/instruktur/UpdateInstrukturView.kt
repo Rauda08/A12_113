@@ -1,5 +1,9 @@
 package com.example.finalucp_113.ui.view.instruktur
 
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -7,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
@@ -41,18 +46,23 @@ fun UpdateInstrukturView(
             )
         }
     ) { innerPadding ->
-        InsertBodyInstruktur(
-            insertInstrukturUIState = viewModel.uiState,
-            onValueChange = viewModel::updateInstrukturState,
-            onClick = {
-                coroutineScope.launch {
-                    viewModel.UpdateInsertInstruktur()
-                    navigateBack()
-                }
-            },
-            modifier = modifier
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFF46051C))
                 .padding(innerPadding)
-                .offset(y = (-70).dp)
-        )
+        ) {
+            InsertBodyInstruktur(
+                insertInstrukturUIState = viewModel.uiState,
+                onValueChange = viewModel::updateInstrukturState,
+                onClick = {
+                    coroutineScope.launch {
+                        viewModel.UpdateInsertInstruktur()
+                        navigateBack()
+                    }
+                },
+                modifier = modifier
+            )
+        }
     }
 }

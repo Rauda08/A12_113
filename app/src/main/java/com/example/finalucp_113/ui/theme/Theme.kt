@@ -34,13 +34,13 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 private val DarkColorPalette = darkColorScheme(
-    primary = Color(0xFF4D172D),
+    primary = Color(0xFFEFB8C8),
     secondary = PinkLight,
     background = PinkMedium,
     surface = PinkBackground,
     onPrimary = Color.White,
     onSecondary = Color.Black,
-    onBackground = Color.White,
+    onBackground = Color(0xFFEFB8C8),
     onSurface = Color.White
 )
 

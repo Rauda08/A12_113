@@ -19,34 +19,50 @@ class InsertKursusViewModel(private val kursusRepository: KursusRepository) : Vi
         )
     }
 
-    private fun validateFields(): Boolean {
+    internal fun validateFields(): Boolean {
         val event = uiState.kursusEvent
-        val errorState = FormErrorState(
+        var errors = FormErrorState()
+        var isValid = true
 
+
+        val harga = event.harga.toIntOrNull()
+        if (harga == null || harga <= 0) {
+            errors = errors.copy(harga = "Harga harus berupa angka")
+            isValid = false
+        }
+
+
+        errors = errors.copy(
             id_kursus = if (event.id_kursus.isNotEmpty()) null else "ID Kursus tidak boleh kosong",
             nama_kursus = if (event.nama_kursus.isNotEmpty()) null else "Nama tidak boleh kosong",
-            deskripsi = if (event.deskripsi.isNotEmpty())  null else "deskripsi tidak boleh kosong",
-            kategori = if (event.kategori.isNotEmpty())  null else "deskripsi tidak boleh kosong",
-            harga = if (event.harga.isNotEmpty()) null else "No Telepon tidak boleh kosong",
-            id_instruktur = if (event.id_instruktur.isNotEmpty())  null else "deskripsi tidak boleh kosong"
-
+            deskripsi = if (event.deskripsi.isNotEmpty()) null else "Deskripsi tidak boleh kosong",
+            kategori = if (event.kategori.isNotEmpty()) null else "Kategori tidak boleh kosong",
+            harga = if (event.harga.isNotEmpty()) null else "Harga tidak boleh kosong",
+            id_instruktur = if (event.id_instruktur.isNotEmpty()) null else "ID Instruktur tidak boleh kosong"
         )
-        uiState = uiState.copy(isEntryValid = errorState)
-        return errorState.isValid()
+
+
+        uiState = uiState.copy(isEntryValid = errors)
+
+        return isValid && errors.isValid()
     }
 
-    fun saveData() {
+    fun saveData(onSuccess: () -> Unit) {
         val currentEvent = uiState.kursusEvent
         if (validateFields()) {
             viewModelScope.launch {
                 try {
+                    // Proses penyimpanan data
                     kursusRepository.insertKursus(currentEvent.toKursus())
+
                     uiState = uiState.copy(
                         snackBarMessage = "Data Berhasil Disimpan",
                         kursusEvent = InsertKursusEvent(),  // Reset input form
                         isEntryValid = FormErrorState() // Reset error state
                     )
+                    onSuccess()
                 } catch (e: Exception) {
+
                     uiState = uiState.copy(
                         snackBarMessage = "Data Gagal Disimpan"
                     )
@@ -58,6 +74,7 @@ class InsertKursusViewModel(private val kursusRepository: KursusRepository) : Vi
             )
         }
     }
+
 
     fun resetSnackBarMessage() {
         uiState = uiState.copy(
@@ -72,13 +89,13 @@ data class InsertKursusUIState(
     val snackBarMessage: String? = null
 )
 
-data class  InsertKursusEvent (
-    val  id_kursus: String =  "" ,
-    val  nama_kursus :  String  =  "" ,
-    val  deskripsi :  String  =  "" ,
-    val kategori : String = "",
-    val  harga :  String  =  "",
-    val id_instruktur : String = ""
+data class InsertKursusEvent(
+    val id_kursus: String = "",
+    val nama_kursus: String = "",
+    val deskripsi: String = "",
+    val kategori: String = "",
+    val harga: String = "",
+    val id_instruktur: String = ""
 )
 
 data class FormErrorState(
@@ -86,31 +103,32 @@ data class FormErrorState(
     val nama_kursus: String? = null,
     val deskripsi: String? = null,
     val kategori: String? = null,
-    val harga: String? = null,
-    val id_instruktur : String? = null
+    var harga: String? = null,
+    val id_instruktur: String? = null
 ) {
     fun isValid(): Boolean {
         return id_kursus == null && nama_kursus == null && deskripsi == null && kategori == null && harga == null && id_instruktur == null
     }
 }
+
 fun InsertKursusEvent.toKursus(): Kursus = Kursus(
     id_kursus = id_kursus,
     nama_kursus = nama_kursus,
     deskripsi = deskripsi,
     kategori = kategori,
     harga = harga,
-    id_instruktur = id_instruktur
-)
-fun Kursus. toUiStateKursus () :  InsertKursusUIState  =  InsertKursusUIState (
-    kursusEvent =  toInsertKursusUiEvent ()
+    id_instruktur = id_instruktur,
 )
 
-fun Kursus. toInsertKursusUiEvent () :  InsertKursusEvent  =  InsertKursusEvent (
-    id_kursus =  id_kursus,
-    nama_kursus =  nama_kursus,
+fun Kursus.toUiStateKursus(): InsertKursusUIState = InsertKursusUIState(
+    kursusEvent = toInsertKursusUiEvent()
+)
+
+fun Kursus.toInsertKursusUiEvent(): InsertKursusEvent = InsertKursusEvent(
+    id_kursus = id_kursus,
+    nama_kursus = nama_kursus,
     deskripsi = deskripsi,
     kategori = kategori,
     harga = harga,
     id_instruktur = id_instruktur
-
 )

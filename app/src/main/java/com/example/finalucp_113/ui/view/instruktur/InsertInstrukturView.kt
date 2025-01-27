@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
+import com.example.finalucp_113.ui.theme.Pink80
 import com.example.finalucp_113.ui.theme.PinkLight
 import com.example.finalucp_113.ui.theme.PinkMedium
 import com.example.finalucp_113.ui.viewmodel.instruktur.FormErrorState
@@ -84,7 +85,8 @@ fun InsertInstrukturView(
                     Text(
                         text = "Tambah Instruktur",
                         style = MaterialTheme.typography.titleLarge,
-                        color = Color.White
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF46051C)
                     )
                 },
                 navigationIcon = {
@@ -92,12 +94,12 @@ fun InsertInstrukturView(
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Kembali",
-                            tint = Color.White
+                            tint = Color(0xFF46051C)
                         )
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = PinkMedium
+                    containerColor = PinkLight
                 )
             )
         }
@@ -106,8 +108,7 @@ fun InsertInstrukturView(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp)
-                .background(MaterialTheme.colorScheme.background)
+                .background(Color(0xFF46051C))
         ) {
             InsertBodyInstruktur(
                 insertInstrukturUIState = viewModel.uiState,
@@ -132,43 +133,41 @@ fun InsertBodyInstruktur(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(30.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = PinkLight) // Light pink background
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        colors = CardDefaults.cardColors(containerColor = Pink80)
         ) {
-            Text(
-                text = "Formulir Instruktur",
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                modifier = Modifier.padding(bottom = 16.dp),
-                textAlign = TextAlign.Center,
-                color = PinkMedium
-            )
-            FormInstruktur(
-                insertInstrukturEvent = insertInstrukturUIState.instrukturEvent,
-                onValueChange = onValueChange,
-                errorState = insertInstrukturUIState.isEntryValid,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = onClick,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = PinkMedium)
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Simpan", color = Color.White)
-            }
+                Text(
+                    text = "Formulir Instruktur",
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    textAlign = TextAlign.Center,
+                    color = PinkMedium
+                )
+                FormInstruktur(
+                    insertInstrukturEvent = insertInstrukturUIState.instrukturEvent,
+                    onValueChange = onValueChange,
+                    errorState = insertInstrukturUIState.isEntryValid,
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-        }
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = onClick,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = PinkMedium)
+                ) {
+                    Text(text = "Simpan", color = Color.White)
+                }
+            }
     }
 }
-
 @Composable
 fun FormInstruktur(
     insertInstrukturEvent: InsertInstrukturEvent,

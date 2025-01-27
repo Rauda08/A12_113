@@ -1,5 +1,8 @@
 package com.example.finalucp_113.ui.view.instruktur
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,11 +12,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,10 +42,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalucp_113.R
 import com.example.finalucp_113.model.Instruktur
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
@@ -76,9 +89,10 @@ fun HomeInstrukturView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddInstruktur,
-                containerColor = Color(0xFF46051C),
-                contentColor = Color.White,
-                modifier = Modifier.padding(16.dp)
+                containerColor = Color(0xFFFFE6F0),
+                contentColor = Color(0xFF46051C),
+                modifier = Modifier.padding(16.dp).border(2.dp,Color(0xFF46051C),MaterialTheme.shapes.medium),
+                shape = MaterialTheme.shapes.medium
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -87,16 +101,21 @@ fun HomeInstrukturView(
             }
         }
     ) { innerPadding ->
-        InstrukturStatus(
-            instrukturUiState = viewModel.instrukturUiState,
-            retryAction = { viewModel.getInstruktur() },
-            modifier = Modifier.padding(innerPadding),
-            onDetailClick = onDetailClick,
-            onDeleteClick = {
-                viewModel.deleteinstruktur(it.id_instruktur)
-                viewModel.getInstruktur()
-            }
-        )
+        Column(
+            modifier = Modifier.fillMaxSize().background(Color(0xFF46051C)),
+        ) {
+
+            InstrukturStatus(
+                instrukturUiState = viewModel.instrukturUiState,
+                retryAction = { viewModel.getInstruktur() },
+                modifier = Modifier.padding(innerPadding),
+                onDetailClick = onDetailClick,
+                onDeleteClick = {
+                    viewModel.deleteinstruktur(it.id_instruktur)
+                    viewModel.getInstruktur()
+                }
+            )
+        }
     }
 }
 
@@ -159,14 +178,15 @@ fun InstrukturCard(
     modifier: Modifier = Modifier,
     onDeleteClick: (Instruktur) -> Unit = {}
 ) {
-
     var showDialog by remember { mutableStateOf(false) }
 
     Card(
-        modifier = modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+        modifier = modifier
+            .padding(8.dp)
+            .border(1.dp, Color(0xFF46051C), MaterialTheme.shapes.medium),
         shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFC1E3)), // Warna latar belakang lembut
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFE6F0)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
             modifier = Modifier
@@ -174,60 +194,76 @@ fun InstrukturCard(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            // Baris untuk ID dan Email
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = instruktur.nama_instruktur,
-                    style = MaterialTheme.typography.titleMedium.copy(fontSize = 25.sp),
-                    color = Color(0xFF46051C)
-                )
-                Text(
-                    text = instruktur.email,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-                    color = Color(0xFF46051C)
-                )
-            }
-
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(
                     text = "ID: ${instruktur.id_instruktur}",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-                    color = Color(0xFF46051C)
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold // Membuat teks bold
+                    ),
+                    color = Color(0xFF46051C),
+                    modifier = Modifier.weight(1f) // Membuat ID tetap di kiri
                 )
-                Text(
-                    text = "Telepon: ${instruktur.no_telepon}",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-                    color = Color(0xFF46051C)
-                )
-                Text(
-                    text = "Deskripsi: ${instruktur.deskripsi}",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-                    color = Color(0xFF46051C)
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = "Ikon Email",
+                        tint = Color(0xFF46051C),
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = instruktur.email,
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
+                        color = Color(0xFF46051C),
+                        modifier = Modifier.padding(start = 4.dp)
+                    )
+                }
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.instruktur),
+                    contentDescription = "Gambar orang",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .padding(end = 16.dp)
+                )
+
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    InfoRow(Icons.Default.Person, instruktur.nama_instruktur)
+                    InfoRow(Icons.Default.Phone, instruktur.no_telepon)
+                    InfoRow(Icons.Default.Favorite, instruktur.deskripsi)
+                }
+
+                // Tombol hapus
                 IconButton(onClick = { showDialog = true }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Hapus Data Instruktur",
-                        tint = Color(0xFF4D1414)
+                        tint = Color(0xFF46051C)
                     )
                 }
             }
         }
     }
+
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
             title = { Text("Konfirmasi Hapus") },
-            text = { Text("Apakah Anda yakin ingin menghapus data Instruktur ini?") },
+            text = { Text("Apakah Anda yakin ingin menghapus data instruktur ini?") },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -244,8 +280,44 @@ fun InstrukturCard(
                 ) {
                     Text("Batal")
                 }
-            },
+            }
         )
-
     }
+}
+
+@Composable
+fun InfoRow(icon: ImageVector, value: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            imageVector = icon,
+            contentDescription = "Icon",
+            tint = Color(0xFF46051C),
+            modifier = Modifier.size(20.dp)
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
+            color = Color(0xFF46051C),
+            modifier = Modifier.padding(start = 8.dp)
+        )
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun InstrukturCardPreview() {
+    val dummyInstruktur = Instruktur(
+        id_instruktur = "Inst01",
+        nama_instruktur = "John Doe",
+        email = "johndoe@example.com",
+        no_telepon = "081234567890",
+        deskripsi = "Instruktur profesional dengan pengalaman 5 tahun."
+    )
+
+    InstrukturCard(
+        instruktur = dummyInstruktur,
+        modifier = Modifier.fillMaxWidth(),
+        onDeleteClick = {}
+    )
 }

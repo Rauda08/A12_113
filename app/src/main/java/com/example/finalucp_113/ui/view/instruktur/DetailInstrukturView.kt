@@ -1,5 +1,8 @@
 package com.example.finalucp_113.ui.view.instruktur
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
@@ -28,13 +32,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalucp_113.R
 import com.example.finalucp_113.model.Instruktur
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
+import com.example.finalucp_113.ui.theme.PinkBackground
+import com.example.finalucp_113.ui.theme.PinkLight
+import com.example.finalucp_113.ui.theme.PinkMedium
 import com.example.finalucp_113.ui.viewmodel.instruktur.DetailInstrukturUiState
 import com.example.finalucp_113.ui.viewmodel.instruktur.DetailInstrukturViewModel
 import com.example.finalucp_113.ui.viewmodel.instruktur.InstrukturPenyediaViewModel
@@ -57,7 +67,8 @@ fun DetailInstrukturView(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CostumeTopAppBar(
                 title = DestinasiDetailInstruktur.titleRes,
@@ -72,8 +83,12 @@ fun DetailInstrukturView(
                     val id_instruktur = (detailViewModel.detailInstrukturUiState as? DetailInstrukturUiState.Success)?.instruktur?.id_instruktur
                     if (id_instruktur != null) onEditClick(id_instruktur)
                 },
-                shape = MaterialTheme.shapes.medium
+                shape = MaterialTheme.shapes.medium,
+                containerColor = Color(0xFFFFE6F0),
+                contentColor = Color(0xFF46051C),
+                modifier = Modifier.padding(16.dp)
             ) {
+
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Edit Instruktur",
@@ -83,8 +98,9 @@ fun DetailInstrukturView(
     ) { innerPadding ->
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(innerPadding).offset(y = (-70).dp)
+                .fillMaxSize()
+                .background(Color(0xFF46051C))
+                .padding(innerPadding)
         ) {
             DetailStatus(
                 InstrukturUiState = detailViewModel.detailInstrukturUiState,
@@ -138,48 +154,91 @@ fun DetailCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 1.dp)
+            .then(Modifier.border(width = 10.dp, color = PinkLight)),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = MaterialTheme.shapes.medium
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(containerColor = PinkBackground)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = Modifier
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            ComponentDetailInstruktur(judul = "Id Instruktur", isinya = instruktur.id_instruktur)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailInstruktur(judul = "Nama Instruktur", isinya = instruktur.nama_instruktur)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailInstruktur(judul = "Email", isinya = instruktur.email)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailInstruktur(judul = "No Telepon", isinya = instruktur.no_telepon)
-            Spacer(modifier = Modifier.height(8.dp))
-            ComponentDetailInstruktur(judul = "Deskripsi", isinya = instruktur.deskripsi)
-            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+                    text = "ID : ${instruktur.id_instruktur}",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = PinkMedium
+                )
+            }
+
+            Image(
+                painter = painterResource(id = R.drawable.instruktur),
+                contentDescription = "Gambar orang",
+                modifier = Modifier
+                    .size(200.dp)
+                    .padding(bottom = 16.dp) // Menambahkan jarak antara gambar dan teks
+            )
+
+            Text(
+                text = "Nama : ${instruktur.nama_instruktur}",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = PinkMedium,
+                modifier = Modifier.fillMaxWidth() // Pastikan teks mengisi lebar yang tersedia
+            )
+
+            Text(
+                text = "Email: ${instruktur.email}",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = PinkMedium,
+                modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+            )
+
+            Text(
+                text = "No Telepon: ${instruktur.no_telepon}",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = PinkMedium,
+                modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+            )
+
+            Text(
+                text = "Deskripsi : ${instruktur.deskripsi}",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = PinkMedium,
+                modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+            )
         }
     }
 }
 
+
+@Preview(showBackground = true)
 @Composable
-fun ComponentDetailInstruktur(
-    modifier: Modifier = Modifier,
-    judul: String,
-    isinya: String,
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = "$judul:",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Gray
-        )
-        Text(
-            text = isinya,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-        )
-    }
+fun DetailCardPreview() {
+    val dummyInstruktur = Instruktur(
+        id_instruktur = "Inst01",
+        nama_instruktur = "John Doe",
+        email = "johndoe@example.com",
+        no_telepon = "081234567890",
+        deskripsi = "terbaik dia adalah guru matematika terbaik disini. dia sangat pandai dalam hal mengajar"
+    )
+
+    DetailCard(
+        instruktur = dummyInstruktur,
+        modifier = Modifier.padding(16.dp)
+    )
 }

@@ -43,7 +43,7 @@ fun HomeMenuView(
         modifier = Modifier
             .fillMaxSize()
             .padding(0.dp)
-            .background(Color(0xFDF3A2BE)),
+            .background(Color(0xFFEFB8C8)),
         verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

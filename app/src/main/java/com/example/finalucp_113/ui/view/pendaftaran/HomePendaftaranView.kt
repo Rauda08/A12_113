@@ -35,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -165,7 +166,7 @@ fun PendaftaranCard(
     Card(
         modifier = modifier.padding(horizontal = 8.dp, vertical = 3.dp),
         shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFC1E3)), // Warna latar belakang lembut
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFDD5E3)),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(
@@ -242,4 +243,18 @@ fun PendaftaranCard(
             },
             )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewPendaftaranCard() {
+    PendaftaranCard(
+        pendaftaran = Pendaftaran(
+            id_pendaftaran = "1",
+            id_siswa = "SIS001",
+            id_kursus = "KRS001",
+            tanggal_pendaftaran = "2025-01-27"
+        ),
+        onDeleteClick = {}
+    )
 }

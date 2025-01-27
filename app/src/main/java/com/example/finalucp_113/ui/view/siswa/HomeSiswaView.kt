@@ -1,6 +1,7 @@
 package com.example.finalucp_113.ui.view.siswa
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -78,8 +79,8 @@ fun HomeSiswaView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddSiswa,
-                containerColor = Color(0xFF46051C),
-                contentColor = Color.White,
+                containerColor = Color(0xFFFFE6F0),
+                contentColor = Color(0xFF46051C),
                 modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
@@ -89,16 +90,20 @@ fun HomeSiswaView(
             }
         }
     ) { innerPadding ->
-        SiswaStatus(
-            siswaUiState = viewModel.siswaUIState,
-            retryAction = { viewModel.getSiswa() },
-            modifier = Modifier.padding(innerPadding),
-            onDetailClick = onDetailClick,
-            onDeleteClick = {
-                viewModel.deletesiswa(it.id_siswa)
-                viewModel.getSiswa()
-            }
-        )
+        Column(
+            modifier = Modifier.fillMaxSize().background(Color(0xFF46051C)),
+        ) {
+            SiswaStatus(
+                siswaUiState = viewModel.siswaUIState,
+                retryAction = { viewModel.getSiswa() },
+                modifier = Modifier.padding(innerPadding),
+                onDetailClick = onDetailClick,
+                onDeleteClick = {
+                    viewModel.deletesiswa(it.id_siswa)
+                    viewModel.getSiswa()
+                }
+            )
+        }
     }
 }
 

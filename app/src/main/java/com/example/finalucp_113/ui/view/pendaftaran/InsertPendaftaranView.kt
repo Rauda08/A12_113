@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.dropdown.DynamicSelectedTextField
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
+import com.example.finalucp_113.ui.theme.Pink80
 import com.example.finalucp_113.ui.theme.PinkLight
 import com.example.finalucp_113.ui.theme.PinkMedium
 import com.example.finalucp_113.ui.viewmodel.kursus.HomeKursusViewModel
@@ -96,7 +97,8 @@ fun InsertPendaftaranView(
                     Text(
                         text = "Tambah Pendaftaran",
                         style = MaterialTheme.typography.titleLarge,
-                        color = Color.White
+                        color = Color(0xFF46051C),
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
@@ -104,12 +106,12 @@ fun InsertPendaftaranView(
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Kembali",
-                            tint = Color.White
+                            tint = Color(0xFF46051C)
                         )
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = PinkMedium
+                    containerColor = Pink80
                 )
             )
         }
@@ -118,8 +120,7 @@ fun InsertPendaftaranView(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp)
-                .background(MaterialTheme.colorScheme.background)
+                .background(Color(0xFF46051C))
         ) {
             InsertBodyPendaftaran(
                 insertPendaftaranUIState = uiState,
@@ -143,9 +144,9 @@ fun InsertBodyPendaftaran(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(30.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = PinkLight)
+        colors = CardDefaults.cardColors(containerColor = Pink80)
     ) {
         Column(
             modifier = Modifier.padding(16.dp),

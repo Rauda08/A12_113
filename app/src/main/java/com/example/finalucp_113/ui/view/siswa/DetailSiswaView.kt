@@ -1,6 +1,7 @@
 package com.example.finalucp_113.ui.view.siswa
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,10 +30,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,8 +41,9 @@ import com.example.finalucp_113.R
 import com.example.finalucp_113.model.Siswa
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
-import com.example.finalucp_113.ui.theme.PinkLight
+import com.example.finalucp_113.ui.theme.Pink80
 import com.example.finalucp_113.ui.theme.PinkMedium
+import com.example.finalucp_113.ui.theme.PinkPrimary
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaUiState
 import com.example.finalucp_113.ui.viewmodel.siswa.DetailsiswaViewModel
 import com.example.finalucp_113.ui.viewmodel.siswa.SiswaPenyediaViewModel
@@ -52,23 +54,6 @@ object DestinasiDetailSiswa : DestinasiNavigasi {
     const val id_siswa = "id_siswa"
     val routeWithArgs = "$route/{$id_siswa}"
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DetailCardPreview() {
-    val dummySiswa = Siswa(
-        id_siswa = "123",
-        nama_siswa = "John Doe",
-        email = "johndoe@example.com",
-        no_telepon = "081234567890"
-    )
-
-    DetailCard(
-        siswa = dummySiswa,
-        modifier = Modifier.padding(16.dp)
-    )
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -96,28 +81,38 @@ fun DetailSiswaView(
                     val id_siswa = (detailViewModel.detailsiswaUiState as? DetailsiswaUiState.Success)?.siswa?.id_siswa
                     if (id_siswa != null) onEditClick(id_siswa)
                 },
-                shape = MaterialTheme.shapes.medium
+                containerColor = Color(0xFFFFE6F0),
+                contentColor = Color(0xFF46051C),
+                modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Edit siswa",
+
                 )
             }
         }
     ) { innerPadding ->
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(innerPadding).offset(y = (-70).dp)
+                .fillMaxSize()
+                .background(Color(0xFF46051C))
+                .padding(innerPadding)
         ) {
-            DetailStatus(
-                siswaUiState = detailViewModel.detailsiswaUiState,
-                retryAction = { detailViewModel.getsiswabyId() },
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.Center)
-                    .padding(16.dp)
-            )
+                    .offset(y = (-70).dp)
+            ) {
+                DetailStatus(
+                    siswaUiState = detailViewModel.detailsiswaUiState,
+                    retryAction = { detailViewModel.getsiswabyId() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Center)
+                        .padding(16.dp)
+                )
+            }
         }
     }
 }
@@ -165,10 +160,10 @@ fun DetailCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 100.dp)
-            .then(Modifier.border(width = 7.dp, color = PinkMedium)),
+            .then(Modifier.border(width = 7.dp, color = PinkPrimary)),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(containerColor = PinkLight)
+        colors = CardDefaults.cardColors(containerColor = Pink80)
     ) {
         Column(
             modifier = Modifier
@@ -217,6 +212,6 @@ fun DetailCard(
                 fontWeight = FontWeight.Normal,
                 color = PinkMedium
             )
-            }
         }
     }
+}

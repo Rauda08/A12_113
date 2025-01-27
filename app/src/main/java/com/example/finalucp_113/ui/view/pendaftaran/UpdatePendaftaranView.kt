@@ -1,6 +1,8 @@
 package com.example.finalucp_113.ui.view.pendaftaran
 
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -8,8 +10,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
@@ -51,6 +53,15 @@ fun UpdatePendaftaranView(
             )
         }
     ) { innerPadding ->
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFF46051C))
+                .padding(innerPadding)
+        ) {
+
+        }
         InsertBodyPendaftaran(
             insertPendaftaranUIState = viewModel.uiState,
             onValueChange = viewModel::updateInsertPendaftaranState,
@@ -62,7 +73,6 @@ fun UpdatePendaftaranView(
             },
             modifier = modifier
                 .padding(innerPadding)
-                .offset(y = (-70).dp)
         )
     }
 }
