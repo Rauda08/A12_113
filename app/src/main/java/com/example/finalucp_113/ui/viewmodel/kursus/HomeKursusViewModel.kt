@@ -28,7 +28,10 @@ class HomeKursusViewModel(private val kursusRepository: KursusRepository) : View
     }
 
     fun searchKursus(query: String) {
-        val filteredKursus = originalKursusList.filter { it.nama_kursus.contains(query, ignoreCase = true) }
+        val filteredKursus = originalKursusList.filter {
+            it.nama_kursus.contains(query, ignoreCase = true) ||
+            it.kategori.contains(query, ignoreCase = true)
+        }
         kursusUIState = KursusUiState.Success(filteredKursus)
     }
 

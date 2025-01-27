@@ -11,13 +11,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -40,12 +46,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -73,7 +76,10 @@ fun HomeKursusView(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .fillMaxSize()
+            .background(Color(0xFF46051C)),
         topBar = {
             CostumeTopAppBar(
                 title = "Home Data Kursus",
@@ -88,8 +94,8 @@ fun HomeKursusView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddKursus,
-                containerColor = Color(0xFF46051C),
-                contentColor = Color.White,
+                containerColor = Color(0xFFFDD5E3),
+                contentColor = Color(0xFF46051C),
                 modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
@@ -99,7 +105,9 @@ fun HomeKursusView(
             }
         }
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
+        Column(
+            modifier = Modifier.padding(innerPadding).fillMaxSize().background(Color(0xFF46051C)),
+        ){
 
             SearchKursus(viewModel)
 
@@ -163,8 +171,8 @@ fun KursusLayout(
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(kursus) { kursus ->
             KursusCard(
@@ -184,75 +192,88 @@ fun KursusCard(
     modifier: Modifier = Modifier,
     onDeleteClick: (Kursus) -> Unit = {}
 ) {
+    val categoryIcon = when (kursus.kategori) {
+        "Saintek" -> Icons.Default.FavoriteBorder
+        "Soshum" -> Icons.Default.ThumbUp
+        else -> Icons.Default.Info
+    }
 
     var showDialog by remember { mutableStateOf(false) }
 
     Card(
-        modifier = modifier.padding(horizontal = 8.dp, vertical = 50.dp).fillMaxWidth(),
+        modifier = modifier.padding(horizontal = 8.dp, vertical = 4.dp).fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF1F1)), // Warna latar belakang lembut
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFDD5E3)),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp) // Mengatur jarak antar elemen
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Icon(
+                    imageVector = categoryIcon,
+                    contentDescription = "Kategori Ikon",
+                    tint = Color(0xFF46051C),
+                    modifier = Modifier.size(24.dp)
+                )
                 Text(
                     text = kursus.nama_kursus,
                     style = MaterialTheme.typography.titleMedium.copy(fontSize = 18.sp),
                     color = Color(0xFF46051C)
                 )
-                Text(
-                    text = kursus.harga,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
-                    color = Color(0xFF46051C)
-                )
             }
 
+            // Mengatur informasi tambahan dan tombol delete dalam Column
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                // Menampilkan Id Kursus
                 Text(
                     text = "Id Kursus: ${kursus.id_kursus}",
                     style = MaterialTheme.typography.bodySmall.copy(fontSize = 14.sp),
                     color = Color(0xFF46051C)
                 )
-                Text(
-                    text = "Id Instruktur: ${kursus.id_instruktur}",
-                    style = MaterialTheme.typography.bodySmall.copy(fontSize = 14.sp),
-                    color = Color(0xFF46051C)
-                )
+                // Menampilkan Kategori
                 Text(
                     text = "Kategori: ${kursus.kategori}",
                     style = MaterialTheme.typography.bodySmall.copy(fontSize = 14.sp),
                     color = Color(0xFF46051C)
                 )
+                // Menampilkan Harga
                 Text(
-                    text = "Deskripsi: ${kursus.deskripsi}",
+                    text = "Harga: ${kursus.harga}",
                     style = MaterialTheme.typography.bodySmall.copy(fontSize = 14.sp),
                     color = Color(0xFF46051C)
                 )
-            }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                IconButton(onClick = { showDialog = true }) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Hapus kursus",
-                        tint = Color(0xFFB00020)
+                // Row untuk Id Instruktur dan tombol delete
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Id Instruktur: ${kursus.id_instruktur}",
+                        style = MaterialTheme.typography.bodySmall.copy(fontSize = 14.sp),
+                        color = Color(0xFF46051C)
                     )
+                    IconButton(onClick = { showDialog = true }) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Hapus kursus",
+                            tint = Color(0xFF46051C)
+                        )
+                    }
                 }
             }
         }
     }
+
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
@@ -265,7 +286,7 @@ fun KursusCard(
                         showDialog = false
                     }
                 ) {
-                    Text("Hapus", color = Color(0xFFB00020))
+                    Text("Hapus", color = Color(0xFF46051C))
                 }
             },
             dismissButton = {
@@ -278,6 +299,7 @@ fun KursusCard(
         )
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -301,7 +323,7 @@ fun SearchKursus(viewModel: HomeKursusViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = Color(0xFFFFF1F1),
+                    color = Color(0xFFFDD5E3),
                     shape = MaterialTheme.shapes.medium
                 )
                 .border(
@@ -340,3 +362,23 @@ fun SearchKursus(viewModel: HomeKursusViewModel) {
         )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewKursusCard() {
+    val dummyKursus = Kursus(
+        id_kursus = "1",
+        nama_kursus = "Belajar Pemrograman Kotlin",
+        id_instruktur = "101",
+        kategori = "Saintek",
+        deskripsi = "Kursus pemrograman Kotlin untuk pemula hingga mahir.",
+        harga = "Rp 500.000",
+    )
+
+    KursusCard(
+        kursus = dummyKursus,
+        onDeleteClick = {},
+        modifier = Modifier.padding(8.dp)
+    )
+}
+
