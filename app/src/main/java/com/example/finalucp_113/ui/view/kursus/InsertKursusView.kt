@@ -17,6 +17,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,14 +42,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalucp_113.ui.dropdown.DynamicSelectedTextField
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.theme.PinkLight
 import com.example.finalucp_113.ui.theme.PinkMedium
+import com.example.finalucp_113.ui.viewmodel.instruktur.HomeInstrukturViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.InstrukturPenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.instruktur.InstrukturUiState
 import com.example.finalucp_113.ui.viewmodel.kursus.FormErrorState
 import com.example.finalucp_113.ui.viewmodel.kursus.InsertKursusEvent
 import com.example.finalucp_113.ui.viewmodel.kursus.InsertKursusUIState
 import com.example.finalucp_113.ui.viewmodel.kursus.InsertKursusViewModel
 import com.example.finalucp_113.ui.viewmodel.kursus.KursusPenyediaViewModel
+import com.example.finalucp_113.ui.viewmodel.kursus.KursusUiState
 import kotlinx.coroutines.launch
 
 object DestinasiInsertKursus : DestinasiNavigasi {
@@ -62,11 +68,13 @@ fun InsertKursusView(
     onBack: () -> Unit,
     onNavigate: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: InsertKursusViewModel = viewModel(factory = KursusPenyediaViewModel.Factory)
+    viewModel: InsertKursusViewModel = viewModel(factory = KursusPenyediaViewModel.Factory),
+    viewModelInstruktur : HomeInstrukturViewModel = viewModel(factory = InstrukturPenyediaViewModel.Factory)
 ) {
     val uiState = viewModel.uiState
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+    val instrukturUiState = viewModelInstruktur.instrukturUiState
 
     LaunchedEffect(uiState.snackBarMessage) {
         uiState.snackBarMessage?.let { message ->
@@ -155,6 +163,7 @@ fun InsertBodyKursus(
                 insertKursusEvent = insertKursusUIState.kursusEvent,
                 onValueChange = onValueChange,
                 errorState = insertKursusUIState.isEntryValid,
+                viewModelInstruktur = viewModel(),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -176,9 +185,10 @@ fun FormKursus(
     insertKursusEvent: InsertKursusEvent,
     onValueChange: (InsertKursusEvent) -> Unit,
     errorState: FormErrorState,
+    viewModelInstruktur: HomeInstrukturViewModel,
     modifier: Modifier = Modifier
 ) {
-
+    val instrukturUiState = viewModelInstruktur.instrukturUiState
     val kategoriOptions = listOf("Saintek", "Soshum")
 
 
@@ -254,7 +264,8 @@ fun FormKursus(
                     onValueChange = { onValueChange(insertKursusEvent.copy(harga = it)) },
                     label = { Text("Harga") },
                     isError = errorState.harga != null,
-                    placeholder = { Text("Masukkan Harga") }
+                    placeholder = { Text("Masukkan Harga") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 if (errorState.harga != null) {
                     Text(text = errorState.harga ?: "", color = Color.Red, fontSize = 12.sp)
@@ -265,6 +276,32 @@ fun FormKursus(
                 )
             }
 
+        }
+    }
+    when (instrukturUiState) {
+        is InstrukturUiState.Loading -> {
+            CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+        }
+
+        is InstrukturUiState.Error -> {
+            Text("Gagal mengambil data Instruktur", color = MaterialTheme.colorScheme.error)
+        }
+
+        is InstrukturUiState.Success -> {
+            val instrukturList = instrukturUiState.instruktur
+            Column(
+                modifier = modifier,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                DynamicSelectedTextField(
+                    selectedValue = insertKursusEvent.id_instruktur.toString(),
+                    options = instrukturList.map { it.id_instruktur.toString() },
+                    label = "Pilih ID Instruktur",
+                    onValueChangedEvent = { selectedId: String ->
+                        onValueChange(insertKursusEvent.copy(id_instruktur = selectedId))
+                    }
+                )
+            }
         }
     }
 }
