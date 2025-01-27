@@ -19,38 +19,45 @@ sealed class KursusUiState {
 
 class HomeKursusViewModel(private val kursusRepository: KursusRepository) : ViewModel() {
 
-    var kursusUIState: KursusUiState by mutableStateOf(KursusUiState.Success(emptyList())) // Inisialisasi dengan Success kosong
+    var kursusUIState: KursusUiState by mutableStateOf(KursusUiState.Loading) // Inisialisasi dengan Loading
         private set
+    private var originalKursusList: List<Kursus> = emptyList() // Menyimpan daftar kursus asli
 
     init {
-        if ((kursusUIState as? KursusUiState.Success)?.kursus?.isEmpty() == true) {
-            getKursus()
-        }
+        getKursus()
+    }
+
+    fun searchKursus(query: String) {
+        val filteredKursus = originalKursusList.filter { it.nama_kursus.contains(query, ignoreCase = true) }
+        kursusUIState = KursusUiState.Success(filteredKursus)
     }
 
     fun getKursus() {
         viewModelScope.launch {
             kursusUIState = KursusUiState.Loading
-            kursusUIState = try {
+            try {
                 val kursusList = kursusRepository.getKursus()
-                KursusUiState.Success(kursusList)
+                originalKursusList = kursusList // Menyimpan daftar kursus asli
+                kursusUIState = KursusUiState.Success(kursusList)
             } catch (e: IOException) {
-                KursusUiState.Error
+                kursusUIState = KursusUiState.Error
             } catch (e: HttpException) {
-                KursusUiState.Error
+                kursusUIState = KursusUiState.Error
             }
         }
     }
 
-    fun  deletekursus ( id_kursus :  String ) {
-        viewModelScope . launch  {
-            try  {
-                kursusRepository. deleteKursus ( id_kursus )
-            }  catch  (e : IOException){
-                KursusUiState . Error
-            }  catch  (e : HttpException){
-                KursusUiState . Error
+    fun deletekursus(id_kursus: String) {
+        viewModelScope.launch {
+            try {
+                kursusRepository.deleteKursus(id_kursus)
+                getKursus() // Memuat ulang kursus setelah penghapusan
+            } catch (e: IOException) {
+                kursusUIState = KursusUiState.Error
+            } catch (e: HttpException) {
+                kursusUIState = KursusUiState.Error
             }
         }
     }
 }
+
