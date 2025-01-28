@@ -48,10 +48,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalucp_113.R
 import com.example.finalucp_113.model.Kursus
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
@@ -106,7 +108,10 @@ fun HomeKursusView(
         }
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding).fillMaxSize().background(Color(0xFF46051C)),
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .background(Color(0xFF46051C)),
         ){
 
             SearchKursus(viewModel)
@@ -193,9 +198,9 @@ fun KursusCard(
     onDeleteClick: (Kursus) -> Unit = {}
 ) {
     val categoryIcon = when (kursus.kategori) {
-        "Saintek" -> Icons.Default.FavoriteBorder
-        "Soshum" -> Icons.Default.ThumbUp
-        else -> Icons.Default.Info
+        "Saintek" -> R.drawable.sigma
+        "Soshum" -> R.drawable.buku
+        else -> R.drawable.orangg
     }
 
     var showDialog by remember { mutableStateOf(false) }
@@ -218,7 +223,7 @@ fun KursusCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = categoryIcon,
+                    painter = painterResource(id = categoryIcon),
                     contentDescription = "Kategori Ikon",
                     tint = Color(0xFF46051C),
                     modifier = Modifier.size(24.dp)

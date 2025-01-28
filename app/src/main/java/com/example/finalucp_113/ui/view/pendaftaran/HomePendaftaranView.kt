@@ -45,9 +45,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalucp_113.R
 import com.example.finalucp_113.model.Pendaftaran
 import com.example.finalucp_113.ui.customwidget.CostumeTopAppBar
 import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
@@ -184,9 +186,9 @@ fun PendaftaranCard(
     var showDialog by remember { mutableStateOf(false) }
 
     val kategoriIcon = when (pendaftaran.kategori) {
-        "Saintek" -> Icons.Default.Lock
-        "Soshum" -> Icons.Default.Star
-        else -> Icons.Default.Info
+        "Saintek" -> R.drawable.sigma
+        "Soshum" -> R.drawable.buku
+        else -> R.drawable.orangg
     }
 
     Card(
@@ -209,7 +211,7 @@ fun PendaftaranCard(
                 // Icon di kiri atas
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
-                        imageVector = kategoriIcon,
+                        painter = painterResource(id = kategoriIcon),
                         contentDescription = "Kategori Ikon",
                         tint = Color(0xFF46051C),
                         modifier = Modifier.size(32.dp).padding(end = 8.dp)
