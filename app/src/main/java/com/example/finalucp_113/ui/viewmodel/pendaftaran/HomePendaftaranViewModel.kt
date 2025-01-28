@@ -30,7 +30,7 @@ class HomePendaftaranViewModel(private val pendaftaranRepository: PendaftaranRep
     fun searchPendaftaran(query: String) {
         val filteredPendaftaran = originalPendaftaranList.filter {
             it.nama_siswa.contains(query, ignoreCase = true) ||
-                    it.kategori.contains(query, ignoreCase = true)
+            it.kategori.contains(query, ignoreCase = true)
         }
         pendaftaranUIState = PendaftaranUiState.Success(filteredPendaftaran)
     }
@@ -38,8 +38,9 @@ class HomePendaftaranViewModel(private val pendaftaranRepository: PendaftaranRep
     fun getpendaftaran() {
         viewModelScope.launch {
             pendaftaranUIState = PendaftaranUiState.Loading
-            pendaftaranUIState = try {
+            try {
                 val pendaftaranList = pendaftaranRepository.getPendaftaran()
+                originalPendaftaranList = pendaftaranList
                 PendaftaranUiState.Success(pendaftaranList)
             } catch (e: IOException) {
                 PendaftaranUiState.Error
