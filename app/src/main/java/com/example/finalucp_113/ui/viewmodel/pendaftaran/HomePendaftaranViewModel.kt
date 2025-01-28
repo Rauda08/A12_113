@@ -27,10 +27,17 @@ class HomePendaftaranViewModel(private val pendaftaranRepository: PendaftaranRep
     init {
         getpendaftaran()
     }
-    fun searchPendaftaran(query: String) {
-        val filteredPendaftaran = originalPendaftaranList.filter {
-            it.nama_siswa.contains(query, ignoreCase = true) ||
-            it.kategori.contains(query, ignoreCase = true)
+    fun filterPendaftaran(category: String, query: String) {
+        val filteredPendaftaran = if (category.isNotEmpty()) {
+            originalPendaftaranList.filter {
+                it.kategori.contains(category, ignoreCase = true) &&
+                        (it.nama_siswa.contains(query, ignoreCase = true) || it.kategori.contains(query, ignoreCase = true))
+            }
+        } else {
+            originalPendaftaranList.filter {
+                it.nama_siswa.contains(query, ignoreCase = true) ||
+                        it.kategori.contains(query, ignoreCase = true)
+            }
         }
         pendaftaranUIState = PendaftaranUiState.Success(filteredPendaftaran)
     }

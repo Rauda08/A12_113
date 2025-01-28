@@ -16,12 +16,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -56,7 +52,6 @@ import com.example.finalucp_113.ui.navigation.DestinasiNavigasi
 import com.example.finalucp_113.ui.viewmodel.pendaftaran.HomePendaftaranViewModel
 import com.example.finalucp_113.ui.viewmodel.pendaftaran.PendaftaranPenyediaViewModel
 import com.example.finalucp_113.ui.viewmodel.pendaftaran.PendaftaranUiState
-import kotlinx.coroutines.delay
 
 object DestinasiHomePendaftaran : DestinasiNavigasi {
     override val route = "home_pendaftaran"
@@ -107,7 +102,7 @@ fun HomePendaftaranView(
                 .background(Color(0xFF46051C)),
         ){
 
-            SearchPendafataran(viewModel)
+            FilterAndSearch(viewModel)
 
             PendaftaranStatus(
                 pendaftaranUiState = viewModel.pendaftaranUIState,
@@ -217,7 +212,6 @@ fun PendaftaranCard(
                         modifier = Modifier.size(32.dp).padding(end = 8.dp)
                     )
 
-                    // Nama siswa di sebelah kanan ikon
                     Text(
                         text = pendaftaran.nama_siswa,
                         style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp),
@@ -225,7 +219,6 @@ fun PendaftaranCard(
                     )
                 }
 
-                // Kategori di kanan atas
                 Text(
                     text = pendaftaran.kategori,
                     style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
@@ -296,65 +289,95 @@ fun PendaftaranCard(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchPendafataran(viewModel: HomePendaftaranViewModel) {
+fun FilterAndSearch(viewModel: HomePendaftaranViewModel) {
+    var selectedCategory by remember { mutableStateOf("") }
     var searchQuery by remember { mutableStateOf("") }
 
-    LaunchedEffect(searchQuery) {
-        delay(200)
-        viewModel.searchPendaftaran(searchQuery)
+    LaunchedEffect(selectedCategory, searchQuery) {
+        viewModel.filterPendaftaran(category = selectedCategory, query = searchQuery)
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        TextField(
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            placeholder = { Text("Cari Pendaftar...") },
+    Column {
+        // Filter Buttons
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(
-                    color = Color(0xFFFDD5E3),
-                    shape = MaterialTheme.shapes.medium
-                )
-                .border(
-                    width = 2.dp,
-                    color = Color(0xFF46051C),
-                    shape = MaterialTheme.shapes.medium
-                ),
-            textStyle = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search",
-                    tint = Color(0xFF46051C)
-                )
-            },
-            trailingIcon = {
-                if (searchQuery.isNotEmpty()) {
-                    IconButton(onClick = {
-                        searchQuery = ""
-                        viewModel.searchPendaftaran("")
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Clear,
-                            contentDescription = "Clear Search",
-                            tint = Color(0xFF46051C)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            val categories = listOf("Saintek", "Soshum", "Semua")
+            categories.forEach { category ->
+                TextButton(
+                    onClick = {
+                        selectedCategory = if (category == "Semua") "" else category
+                    },
+                    modifier = Modifier
+                        .border(
+                            width = 2.dp,
+                            color = if (selectedCategory == category || (category == "Semua" && selectedCategory.isEmpty())) {
+                                Color(0xFF46051C)
+                            } else Color(0xFFFDD5E3),
+                            shape = MaterialTheme.shapes.medium
                         )
-                    }
+                        .background(
+                            color = if (selectedCategory == category || (category == "Semua" && selectedCategory.isEmpty())) {
+                                Color(0xFFFDD5E3)
+                            } else Color(0xFF46051C),
+                            shape = MaterialTheme.shapes.medium
+                        ),
+                ) {
+                    Text(
+                        text = category,
+                        color = if (selectedCategory == category || (category == "Semua" && selectedCategory.isEmpty())) {
+                            Color(0xFF46051C)
+                        } else Color(0xFFFDD5E3),
+                    )
                 }
-            },
-            colors = androidx.compose.material3.TextFieldDefaults.textFieldColors(
-                containerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = Color(0xFF46051C)
-            )
-        )
+            }
+        }
+
+        SearchPendafataran(viewModel = viewModel, query = searchQuery) { newQuery ->
+        searchQuery = newQuery
+        }
     }
 }
 
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchPendafataran(
+    viewModel: HomePendaftaranViewModel,
+    query: String,
+    onQueryChange: (String) -> Unit
+) {
+    TextField(
+        value = query,
+        onValueChange = {
+            onQueryChange(it)
+        },
+        placeholder = {
+            Text(
+                "Cari Pendaftar...",
+                color = Color(0xFF46051C)
+            )
+        },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search Icon",
+                tint = Color(0xFF46051C)
+            )
+        },
+        colors = androidx.compose.material3.TextFieldDefaults.textFieldColors(
+            containerColor = Color(0xFFFDD5E3),
+            focusedIndicatorColor = Color(0xFF46051C),
+            unfocusedIndicatorColor = Color(0xFFBDBDBD),
+            cursorColor = Color(0xFF46051C)
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        singleLine = true
+    )
+}
