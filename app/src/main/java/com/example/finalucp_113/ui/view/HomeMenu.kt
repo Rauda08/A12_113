@@ -1,3 +1,4 @@
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,10 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.finalucp_113.R
@@ -36,10 +35,10 @@ fun HomeMenuView(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFEFB8C8)),
-        verticalArrangement = Arrangement.spacedBy(30.dp, Alignment.CenterVertically), // Memberi jarak antara gambar dan tombol
+        verticalArrangement = Arrangement.spacedBy(30.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Gambar logo yang lebih besar dan lebih ke atas
+        // Logo
         Image(
             painter = painterResource(id = R.drawable.logomenu),
             contentDescription = "Logo Lembaga Kursus",
@@ -48,7 +47,7 @@ fun HomeMenuView(
                 .padding(top = 30.dp)
         )
 
-        // Header teks
+        // Selamat Datang
         Text(
             text = "Selamat Datang",
             fontSize = 40.sp,
@@ -65,95 +64,89 @@ fun HomeMenuView(
             modifier = Modifier.padding(top = 10.dp)
         )
 
+        // Tombol
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),  // Menambahkan padding horizontal agar tombol tidak terlalu rapat
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
-                horizontalArrangement = Arrangement.Center, // Menempatkan tombol di tengah
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(
-                    onClick = onSiswaClick,
-                    modifier = Modifier.size(120.dp), // Membuat tombol lebih besar
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF46051C)),
-                    shape = RectangleShape // Membuat tombol dengan sudut tajam
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Person, // Ikon untuk menu siswa
-                        contentDescription = "Icon Siswa",
-                        modifier = Modifier.size(60.dp),
-                        tint = Color.White
-                    )
-                }
+                MenuButton(
+                    label = "Siswa",
+                    icon = Icons.Default.Person,
+                    onClick = onSiswaClick
+                )
 
-                Spacer(modifier = Modifier.width(16.dp))  // Memberikan ruang antara tombol
+                Spacer(modifier = Modifier.width(16.dp))
 
-                Button(
-                    onClick = onInstrukturClick,
-                    modifier = Modifier.size(120.dp), // Membuat tombol lebih besar
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF46051C)),
-                    shape = RectangleShape // Membuat tombol dengan sudut tajam
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.AccountCircle, // Ikon untuk menu instruktur
-                        contentDescription = "Icon Instruktur",
-                        modifier = Modifier.size(60.dp),
-                        tint = Color.White
-                    )
-                }
+                MenuButton(
+                    label = "Instruktur",
+                    icon = Icons.Default.AccountCircle,
+                    onClick = onInstrukturClick
+                )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))  // Memberikan ruang antara baris tombol
+            Spacer(modifier = Modifier.height(16.dp))
 
             Row(
-                horizontalArrangement = Arrangement.Center, // Menempatkan tombol di tengah
+                horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(
-                    onClick = onKursusClick,
-                    modifier = Modifier.size(120.dp), // Membuat tombol lebih besar
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF46051C)),
-                    shape = RectangleShape // Membuat tombol dengan sudut tajam
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Star, // Ikon untuk menu kursus
-                        contentDescription = "Icon Kursus",
-                        modifier = Modifier.size(60.dp),
-                        tint = Color.White
-                    )
-                }
+                MenuButton(
+                    label = "Kursus",
+                    icon = Icons.Default.Star,
+                    onClick = onKursusClick
+                )
 
-                Spacer(modifier = Modifier.width(16.dp))  // Memberikan ruang antara tombol
+                Spacer(modifier = Modifier.width(16.dp))
 
-                Button(
-                    onClick = onPendaftaranClick,
-                    modifier = Modifier.size(120.dp), // Membuat tombol lebih besar
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF46051C)),
-                    shape = RectangleShape // Membuat tombol dengan sudut tajam
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Create, // Ikon untuk menu pendaftaran
-                        contentDescription = "Icon Pendaftaran",
-                        modifier = Modifier.size(60.dp),
-                        tint = Color.White
-                    )
-                }
+                MenuButton(
+                    label = "Pendaftaran",
+                    icon = Icons.Default.Create,
+                    onClick = onPendaftaranClick
+                )
             }
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun PreviewHomeMenuView() {
-    HomeMenuView(
-        onSiswaClick = {},
-        onInstrukturClick = {},
-        onKursusClick = {},
-        onPendaftaranClick = {}
-    )
+fun MenuButton(
+    label: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier.size(140.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFDD5E3)), // Warna latar belakang
+        shape = MaterialTheme.shapes.medium,
+        contentPadding = PaddingValues(0.dp),
+        border = BorderStroke(2.dp, Color(0xFF46051C))
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = label,
+                modifier = Modifier.size(50.dp),
+                tint = Color(0xFF46051C)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = label,
+                color = Color(0xFF46051C),
+                style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp),
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
 }

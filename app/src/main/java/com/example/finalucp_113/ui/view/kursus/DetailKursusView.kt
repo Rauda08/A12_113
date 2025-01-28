@@ -83,7 +83,10 @@ fun DetailkursusView(
                     val id_kursus = (detailViewModel.detailkursusUiState as? DetailkursusUiState.Success)?.kursus?.id_kursus
                     if (id_kursus != null) onEditClick(id_kursus)
                 },
-                shape = MaterialTheme.shapes.medium
+                shape = MaterialTheme.shapes.medium ,
+                containerColor = Color(0xFFFFE6F0),
+                contentColor = Color(0xFF46051C),
+                modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
