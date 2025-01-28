@@ -40,7 +40,7 @@ class HomeKursusViewModel(private val kursusRepository: KursusRepository) : View
             kursusUIState = KursusUiState.Loading
             try {
                 val kursusList = kursusRepository.getKursus()
-                originalKursusList = kursusList // Menyimpan daftar kursus asli
+                originalKursusList = kursusList
                 kursusUIState = KursusUiState.Success(kursusList)
             } catch (e: IOException) {
                 kursusUIState = KursusUiState.Error

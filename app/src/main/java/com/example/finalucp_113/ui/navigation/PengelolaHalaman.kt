@@ -1,5 +1,6 @@
 package com.example.finalucp_113.ui.navigation
 
+import HomeMenuView
 import UpdateSiswaView
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

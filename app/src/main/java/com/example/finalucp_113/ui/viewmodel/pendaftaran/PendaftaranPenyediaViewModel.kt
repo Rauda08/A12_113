@@ -14,7 +14,9 @@ object PendaftaranPenyediaViewModel {
         initializer {
             DetailpendaftaranViewModel(
                 savedStateHandle = this.createSavedStateHandle(),
-                pendaftaranRepository = lembagakursusApp().container.pendaftaranRepository
+                pendaftaranRepository = lembagakursusApp().container.pendaftaranRepository,
+                kursusRepository = lembagakursusApp().container.kursusRepository,
+                siswaRepository = lembagakursusApp().container.siswaRepository
             )
         }
         initializer {

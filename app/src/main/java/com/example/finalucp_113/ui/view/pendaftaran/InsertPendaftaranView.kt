@@ -168,6 +168,12 @@ fun InsertBodyPendaftaran(
                 viewModelSiswa = viewModel(),
                 viewModelKursus = viewModel()
             )
+            if (insertPendaftaranUIState.pendaftaranEvent.nama_siswa.isNotEmpty() && insertPendaftaranUIState.pendaftaranEvent.nama_kursus.isNotEmpty() && insertPendaftaranUIState.pendaftaranEvent.kategori.isNotEmpty()) {
+                Text("Nama Siswa: ${insertPendaftaranUIState.pendaftaranEvent.nama_siswa}")
+                Text("Nama Kursus: ${insertPendaftaranUIState.pendaftaranEvent.nama_kursus}")
+                Text("Kategori: ${insertPendaftaranUIState.pendaftaranEvent.kategori}")
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(

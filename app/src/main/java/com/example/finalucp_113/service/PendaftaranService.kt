@@ -16,8 +16,12 @@ interface PendaftaranService {
         "Accept: application/json",
         "Content-Type: application/json"
     )
-    @GET("getpendaftaran.php")
+    @GET("getpendaftaranjoin.php")
     suspend fun getPendaftaran(): List<Pendaftaran>
+
+//    @GET("getpendaftaranjoin.php")
+//    suspend fun getbyjoinPendaftaran(): List<Pendaftaran>
+
     @GET("getbyidpendaftaran.php/{id_pendaftaran}")
     suspend fun getPendaftaranByIdPendaftaran(@Query("id_pendaftaran") idPendaftaran: String): Pendaftaran
 

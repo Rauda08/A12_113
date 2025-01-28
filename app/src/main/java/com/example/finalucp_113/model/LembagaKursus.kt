@@ -33,6 +33,9 @@ data class Kursus(
 data class Pendaftaran(
     val id_pendaftaran: String,
     val id_siswa: String,
+    val nama_siswa: String = "",
+    val nama_kursus: String = "",
     val id_kursus: String,
+    val kategori: String = "",
     val tanggal_pendaftaran: String
 )

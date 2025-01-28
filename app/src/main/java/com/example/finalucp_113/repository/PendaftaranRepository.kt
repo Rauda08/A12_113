@@ -4,6 +4,8 @@ import com.example.finalucp_113.model.Pendaftaran
 import com.example.finalucp_113.service.PendaftaranService
 import java.io.IOException
 
+
+
 interface PendaftaranRepository {
     suspend fun getPendaftaran(): List<Pendaftaran>
     suspend fun insertPendaftaran(pendaftaran: Pendaftaran)
@@ -19,6 +21,25 @@ class NetworkPendaftaranRepository(
     override suspend fun insertPendaftaran(pendaftaran: Pendaftaran) {
         pendaftaranApiService.insertPendaftaran(pendaftaran)
     }
+
+//    override suspend fun insertPendaftaran(pendaftaran: Pendaftaran) {
+//        val response = pendaftaranApiService.insertPendaftaran(pendaftaran)
+//        if (response.isSuccessful) {
+//            val responseBody = response.body()
+//            if (responseBody != null) {
+//                val insertedPendaftaran = Pendaftaran(
+//                    id_pendaftaran = responseBody.id_pendaftaran,
+//                    id_siswa = pendaftaran.id_siswa,
+//                    nama_siswa = responseBody.nama_siswa,
+//                    nama_kursus = responseBody.nama_kursus,
+//                    id_kursus = pendaftaran.id_kursus,
+//                    tanggal_pendaftaran = pendaftaran.tanggal_pendaftaran
+//                )
+//            }
+//        } else {
+//            throw IOException("Failed to insert Pendaftaran. HTTP status code: ${response.code}")
+//        }
+//    }
 
     override suspend fun updatePendaftaran(idPendaftaran: String, pendaftaran: Pendaftaran) {
         pendaftaranApiService.updatePendaftaran(idPendaftaran, pendaftaran)
@@ -43,3 +64,5 @@ class NetworkPendaftaranRepository(
         return pendaftaranApiService.getPendaftaranByIdPendaftaran(idPendaftaran)
     }
 }
+
+

@@ -73,8 +73,14 @@ data class  InsertPendaftaranEvent (
     val  id_pendaftaran: String =  "" ,
     val  id_siswa :  String  =  "" ,
     val  id_kursus :  String  =  "" ,
+    val  nama_siswa: String = "",
+    val  nama_kursus : String = "",
+    val  kategori : String = "",
     val  tanggal_pendaftaran :  String  =  ""
-)
+) {
+
+
+}
 
 data class FormErrorState(
     val id_pendaftaran: String? = null,
@@ -90,6 +96,9 @@ fun InsertPendaftaranEvent.toPendaftaran(): Pendaftaran = Pendaftaran(
     id_pendaftaran = id_pendaftaran,
     id_siswa = id_siswa,
     id_kursus = id_kursus,
+    nama_siswa = nama_siswa,
+    nama_kursus = nama_kursus,
+    kategori = kategori,
     tanggal_pendaftaran = tanggal_pendaftaran
 )
 fun Pendaftaran. toUiStatePendaftaran () :  InsertPendaftaranUIState  =  InsertPendaftaranUIState (

@@ -19,14 +19,20 @@ sealed class PendaftaranUiState {
 
 class HomePendaftaranViewModel(private val pendaftaranRepository: PendaftaranRepository) : ViewModel() {
 
-    var pendaftaranUIState: PendaftaranUiState by mutableStateOf(PendaftaranUiState.Success(emptyList()))
+    var pendaftaranUIState: PendaftaranUiState by mutableStateOf(PendaftaranUiState.Loading) // Inisialisasi dengan Loading
         private set
 
+    private var originalPendaftaranList: List<Pendaftaran> = emptyList()
+
     init {
-        // Cek apakah sudah ada data pendaftaran sebelum memuatnya
-        if ((pendaftaranUIState as? PendaftaranUiState.Success)?.pendaftaran?.isEmpty() == true) {
-            getpendaftaran()
+        getpendaftaran()
+    }
+    fun searchPendaftaran(query: String) {
+        val filteredPendaftaran = originalPendaftaranList.filter {
+            it.nama_siswa.contains(query, ignoreCase = true) ||
+                    it.kategori.contains(query, ignoreCase = true)
         }
+        pendaftaranUIState = PendaftaranUiState.Success(filteredPendaftaran)
     }
 
     fun getpendaftaran() {

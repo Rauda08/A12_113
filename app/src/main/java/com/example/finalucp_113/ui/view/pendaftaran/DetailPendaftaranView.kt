@@ -203,6 +203,16 @@ fun DetailCard(
                 icon = Icons.Default.Place
             )
             ComponentDetailPendaftaran(
+                judul = "Nama Siswa",
+                isinya = pendaftaran.nama_siswa,
+                icon = Icons.Default.Place
+            )
+            ComponentDetailPendaftaran(
+                judul = "Nama Kursus",
+                isinya = pendaftaran.nama_kursus,
+                icon = Icons.Default.Place
+            )
+            ComponentDetailPendaftaran(
                 judul = "Tanggal Pendaftaran",
                 isinya = pendaftaran.tanggal_pendaftaran,
                 icon = Icons.Default.DateRange
@@ -248,17 +258,4 @@ fun ComponentDetailPendaftaran(
             modifier = Modifier.widthIn(max = 180.dp)
         )
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewDetailCard() {
-    DetailCard(
-        pendaftaran = Pendaftaran(
-            id_pendaftaran = "12345",
-            id_siswa = "S001",
-            id_kursus = "K001",
-            tanggal_pendaftaran = "2025-01-01"
-        )
-    )
 }
