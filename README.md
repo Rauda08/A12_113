@@ -1,5 +1,11 @@
+# Aplikasi Pendaftaran Kursus
 
+Aplikasi ini berfungsi untuk menginput data-data pendaftaran dari sebuah manajemen atau 
+
+lembaga kursus yang terdiri dari data siswa, instruktur, kursus, dan pendaftaran.
 ---
+
+
 
 ## **1. Menu Utama**
 | ![homemenu](https://github.com/user-attachments/assets/6afece94-7e2c-43fd-b88f-1410fc8688ec) |
