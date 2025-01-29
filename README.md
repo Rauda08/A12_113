@@ -1,9 +1,6 @@
-# Aplikasi Pendaftaran Kursus
+# *Aplikasi Pendaftaran Kursus**
 
-Aplikasi ini berfungsi untuk menginput data-data pendaftaran dari sebuah manajemen atau 
-
-lembaga kursus yang terdiri dari data siswa, instruktur, kursus, dan pendaftaran.
----
+Aplikasi ini berfungsi untuk menginput data-data pendaftaran dari sebuah manajemen atau lembaga kursus yang terdiri dari data siswa, instruktur, kursus, dan pendaftaran.
 
 
 
