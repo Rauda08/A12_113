@@ -29,6 +29,7 @@ Aplikasi ini berfungsi untuk menginput data-data pendaftaran dari sebuah manajem
 ---
 
 ## **4. Menu Kursus**
+menu ini memiliki fitur untuk pencarian menggunakan search
 | ![homekursus](https://github.com/user-attachments/assets/4c380160-1f97-4f52-a3fe-7c49de55711f) | ![insertkursus](https://github.com/user-attachments/assets/8dc90b85-6e53-4527-a769-2055deb57218) | ![detailkursus](https://github.com/user-attachments/assets/72bfbd62-1c64-4d9b-aee0-7e30deb8633a) |
 |---|---|---|
 
@@ -38,6 +39,7 @@ Aplikasi ini berfungsi untuk menginput data-data pendaftaran dari sebuah manajem
 ---
 
 ## **5. Menu Pendaftaran**
+dimenu ini, memiliki fitur untuk mencari data dengan filter berdasarkan kategori (saintek/soshum) dan juga menggunakan fitur search
 | ![homependaftaransaintek](https://github.com/user-attachments/assets/e87d215c-aec1-47ca-92ba-976e4989474e) | ![seacrhpendaftaran](https://github.com/user-attachments/assets/92690bf9-5c1c-4dda-b3ed-a4f72df4999b) |
 |---|---|
 
