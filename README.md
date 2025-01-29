@@ -8,11 +8,7 @@ berikut adalah tampilan hasil aplikasi :
 
 -Menu Sisiwa
 
-![homesiswa](https://github.com/user-attachments/assets/60d7fc88-b291-4e6d-a1a0-7ba7961a4ff3)
-![insertsiswa](https://github.com/user-attachments/assets/5be86896-0042-4f08-99b1-861cf7f315f6)
-![detailsiswa](https://github.com/user-attachments/assets/9f23dc7c-5343-45d1-934b-00ad36a6309a)
-![updatesiswa](https://github.com/user-attachments/assets/50dece36-4e2f-405a-bcf3-e983231c3f13)
-![deletesiswa](https://github.com/user-attachments/assets/3971574d-c79c-4e2e-bb07-dbe3b2d5abb1)
+![homesiswa](https://github.com/user-attachments/assets/60d7fc88-b291-4e6d-a1a0-7ba7961a4ff3) ![insertsiswa](https://github.com/user-attachments/assets/5be86896-0042-4f08-99b1-861cf7f315f6) ![detailsiswa](https://github.com/user-attachments/assets/9f23dc7c-5343-45d1-934b-00ad36a6309a) ![updatesiswa](https://github.com/user-attachments/assets/50dece36-4e2f-405a-bcf3-e983231c3f13) ![deletesiswa](https://github.com/user-attachments/assets/3971574d-c79c-4e2e-bb07-dbe3b2d5abb1)
 
 
 - Menu Instruktur
